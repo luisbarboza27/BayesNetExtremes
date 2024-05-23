@@ -1,0 +1,683 @@
+---
+title: "Pruebas de paquete"
+author: "Carlos Pasquier Jaramillo"
+date: "`r Sys.Date()`"
+output: html_document
+---
+# Ejemplo normal: 
+```{r}
+#devtools::install_github("msainsburydale/NeuralEstimators")
+```
+```{r}
+library("NeuralEstimators")
+```
+
+```{r}
+prior <- function(K) {
+  mu    <- rnorm(K)
+  sigma <- rgamma(K, 1)
+  Theta <- matrix(c(mu, sigma), byrow = TRUE, ncol = K)
+  return(Theta)
+}
+K <- 10000
+theta_train <- prior(K) 
+theta_val   <- prior(K/10)
+```
+
+```{r}
+simulate <- function(Theta, m) {
+apply(Theta, 2, function(theta) t(rnorm(m, theta[1], theta[2])), simplify = FALSE,)
+}
+
+m <- 15
+Z_train <- simulate(theta_train, m)
+Z_val   <- simulate(theta_val, m)
+```
+
+
+
+
+```{r}
+theta_test <- prior(1000)
+Z_test     <- simulate(theta_test, m)
+assessment <- assess(estimator, theta_test, Z_test)
+```
+
+```{r}
+theta <- as.matrix(c(0, 0.5))                             # true parameters
+J   <- 400                                              # number of data sets
+Z   <- lapply(1:J, function(i) simulate(theta, m)[[1]]) # simulate data 
+assessment <- assess(estimator, theta, Z)
+plotdistribution(assessment$estimates)
+```
+
+
+# Autoregresivo
+## Autogresivo base
+
+```{r}
+previa.autoregresivo <- function(K) {
+  phi    <- runif(K,min = -1,max=1)
+  sigma <- rgamma(K, 1)
+  Theta <- matrix(c(phi, sigma), byrow = TRUE, ncol = K)
+  return(Theta)
+}
+K <- 100000
+theta_train <- previa.autoregresivo(K) 
+theta_val   <- previa.autoregresivo(K/10)
+
+
+simulate.autoregresivo <- function(Theta, m) {
+  apply(Theta, 2, function(theta) t(arima.sim(n = m, list(ar = c(Theta[1])),
+          sd = Theta[2] )),simplify = F)
+}
+
+m <- 15
+Z_train <- simulate.autoregresivo(theta_train, m)
+Z_val   <- simulate.autoregresivo(theta_val, m)
+```
+
+
+
+```{r}
+library("NeuralEstimators")
+
+estimator <- initialise_estimator(p = 2, d = 1, architecture = "DNN")
+
+library("JuliaConnectoR")
+
+juliaEval('import Pkg; Pkg.add("Flux")')
+
+estimator <- juliaEval('
+  using NeuralEstimators
+  using Flux
+
+  d = 1    # dimension of each replicate
+  p = 2    # number of parameters in the statistical model
+  w = 32   # number of neurons in each hidden layer
+
+  psi = Chain(Dense(d, w, relu), Dense(w, w, relu), Dense(w, w, relu))
+  phi = Chain(Dense(w, w, relu), Dense(w, w, relu), Dense(w, p))
+  DeepSet(psi, phi)
+')
+
+
+start.time <- Sys.time()
+
+
+estimator <- train(
+  estimator,
+  theta_train = theta_train,
+  theta_val   = theta_val,
+  Z_train = Z_train,
+  Z_val   = Z_val,
+  epochs = 50
+  )
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+
+```
+
+```{r}
+theta_test <- previa.autoregresivo(1000)
+Z_test     <- simulate.autoregresivo(theta_test, m)
+assessment <- assess(estimator, theta_test, Z_test)
+
+
+rmse(assessment)
+```
+
+```{r}
+theta <- as.matrix(c(0.8, 0.5))                             # true parameters
+J   <- 400                                              # number of data sets
+Z   <- lapply(1:J, function(i) simulate.autoregresivo(theta, m)[[1]]) # simulate data 
+assessment_un_parametro <- assess(estimator, theta, Z)
+plotdistribution(assessment_un_parametro$estimates)
+```
+
+
+## Autoregresivo 100k, t=100
+
+
+
+```{r}
+K <- 100000
+theta_train <- previa.autoregresivo(K) 
+theta_val   <- previa.autoregresivo(K/10)
+
+
+simulate.autoregresivo <- function(Theta, m) {
+  apply(Theta, 2, function(theta) t(arima.sim(n = m, list(ar = c(Theta[1])),
+          sd = Theta[2] )),simplify = F)
+}
+
+m <- 100
+Z_train <- simulate.autoregresivo(theta_train, m)
+Z_val   <- simulate.autoregresivo(theta_val, m)
+```
+
+
+
+```{r}
+library("NeuralEstimators")
+
+estimator <- initialise_estimator(p = 2, d = 1, architecture = "DNN")
+
+library("JuliaConnectoR")
+
+juliaEval('import Pkg; Pkg.add("Flux")')
+
+estimator <- juliaEval('
+  using NeuralEstimators
+  using Flux
+
+  d = 1    # dimension of each replicate
+  p = 2    # number of parameters in the statistical model
+  w = 32   # number of neurons in each hidden layer
+
+  psi = Chain(Dense(d, w, relu), Dense(w, w, relu), Dense(w, w, relu))
+  phi = Chain(Dense(w, w, relu), Dense(w, w, relu), Dense(w, p))
+  DeepSet(psi, phi)
+')
+
+
+start.time <- Sys.time()
+
+
+estimator <- train(
+  estimator,
+  theta_train = theta_train,
+  theta_val   = theta_val,
+  Z_train = Z_train,
+  Z_val   = Z_val,
+epochs = 50
+  )
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+
+```
+
+```{r}
+theta_test <- previa.autoregresivo(1000)
+Z_test     <- simulate.autoregresivo(theta_test, m)
+assessment <- assess(estimator, theta_test, Z_test)
+
+
+rmse(assessment)
+```
+
+```{r}
+theta <- as.matrix(c(0.8, 0.5))                             # true parameters
+J   <- 400                                              # number of data sets
+Z   <- lapply(1:J, function(i) simulate.autoregresivo(theta, m)[[1]]) # simulate data 
+assessment_un_parametro <- assess(estimator, theta, Z)
+plotdistribution(assessment_un_parametro$estimates)
+```
+
+```{r}
+save.image('s100kt100n100.RData')
+```
+
+
+## Autoregresivo 100k, t=15, complejidad 100 neuroanas
+
+```{r}
+K <- 100000
+theta_train <- previa.autoregresivo(K) 
+theta_val   <- previa.autoregresivo(K/10)
+
+
+simulate.autoregresivo <- function(Theta, m) {
+  apply(Theta, 2, function(theta) t(arima.sim(n = m, list(ar = c(Theta[1])),
+          sd = Theta[2] )),simplify = F)
+}
+
+m <- 15
+Z_train <- simulate.autoregresivo(theta_train, m)
+Z_val   <- simulate.autoregresivo(theta_val, m)
+```
+
+
+
+```{r}
+library("NeuralEstimators")
+
+estimator <- initialise_estimator(p = 2, d = 1, architecture = "DNN")
+
+library("JuliaConnectoR")
+
+juliaEval('import Pkg; Pkg.add("Flux")')
+
+estimator <- juliaEval('
+  using NeuralEstimators
+  using Flux
+
+  d = 1    # dimension of each replicate
+  p = 2    # number of parameters in the statistical model
+  w = 100   # number of neurons in each hidden layer
+
+  psi = Chain(Dense(d, w, relu), Dense(w, w, relu), Dense(w, w, relu))
+  phi = Chain(Dense(w, w, relu), Dense(w, w, relu), Dense(w, p))
+  DeepSet(psi, phi)
+')
+
+
+start.time <- Sys.time()
+
+
+estimator <- train(
+  estimator,
+  theta_train = theta_train,
+  theta_val   = theta_val,
+  Z_train = Z_train,
+  Z_val   = Z_val,
+epochs = 50
+  )
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+
+```
+
+```{r}
+theta_test <- previa.autoregresivo(1000)
+Z_test     <- simulate.autoregresivo(theta_test, m)
+assessment <- assess(estimator, theta_test, Z_test)
+
+
+rmse(assessment)
+```
+
+```{r}
+theta <- as.matrix(c(0.8, 0.5))                             # true parameters
+J   <- 400                                              # number of data sets
+Z   <- lapply(1:J, function(i) simulate.autoregresivo(theta, m)[[1]]) # simulate data 
+assessment_un_parametro <- assess(estimator, theta, Z)
+plotdistribution(assessment_un_parametro$estimates)
+```
+
+```{r}
+save.image('s100kt15n100.RData')
+```
+
+
+
+## Autoregresivo 1m, t=15, complejidad 32 neuroanas
+
+```{r}
+K <- 1000000
+theta_train <- previa.autoregresivo(K) 
+theta_val   <- previa.autoregresivo(K/10)
+
+
+simulate.autoregresivo <- function(Theta, m) {
+  apply(Theta, 2, function(theta) t(arima.sim(n = m, list(ar = c(Theta[1])),
+          sd = Theta[2] )),simplify = F)
+}
+
+m <- 15
+Z_train <- simulate.autoregresivo(theta_train, m)
+Z_val   <- simulate.autoregresivo(theta_val, m)
+```
+
+
+
+```{r}
+library("NeuralEstimators")
+
+estimator <- initialise_estimator(p = 2, d = 1, architecture = "DNN")
+
+library("JuliaConnectoR")
+
+juliaEval('import Pkg; Pkg.add("Flux")')
+
+estimator <- juliaEval('
+  using NeuralEstimators
+  using Flux
+
+  d = 1    # dimension of each replicate
+  p = 2    # number of parameters in the statistical model
+  w = 32   # number of neurons in each hidden layer
+
+  psi = Chain(Dense(d, w, relu), Dense(w, w, relu), Dense(w, w, relu))
+  phi = Chain(Dense(w, w, relu), Dense(w, w, relu), Dense(w, p))
+  DeepSet(psi, phi)
+')
+
+
+start.time <- Sys.time()
+
+
+estimator <- train(
+  estimator,
+  theta_train = theta_train,
+  theta_val   = theta_val,
+  Z_train = Z_train,
+  Z_val   = Z_val,
+epochs = 50
+  )
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+
+```
+
+```{r}
+theta_test <- previa.autoregresivo(1000)
+Z_test     <- simulate.autoregresivo(theta_test, m)
+assessment <- assess(estimator, theta_test, Z_test)
+
+
+rmse(assessment)
+```
+
+```{r}
+theta <- as.matrix(c(0.8, 0.5))                             # true parameters
+J   <- 400                                              # number of data sets
+Z   <- lapply(1:J, function(i) simulate.autoregresivo(theta, m)[[1]]) # simulate data 
+assessment_un_parametro <- assess(estimator, theta, Z)
+plotdistribution(assessment_un_parametro$estimates)
+```
+
+```{r}
+save.image('s1mt15n32.RData')
+```
+
+## Autoregresivo restringido
+
+
+
+```{r}
+previa.autoregresivo <- function(K) {
+  phi    <- runif(K,min = 0.5,max=0.8)
+  sigma <- rgamma(K,shape=2,scale = 1)
+  Theta <- matrix(c(phi, sigma), byrow = TRUE, ncol = K)
+  return(Theta)
+}
+K <- 100000
+theta_train <- previa.autoregresivo(K) 
+theta_val   <- previa.autoregresivo(K/10)
+
+
+simulate.autoregresivo <- function(Theta, m) {
+  apply(Theta, 2, function(theta) t(arima.sim(n = m, list(ar = c(Theta[1])),
+          sd = Theta[2] )),simplify = F)
+}
+
+m <- 15
+Z_train <- simulate.autoregresivo(theta_train, m)
+Z_val   <- simulate.autoregresivo(theta_val, m)
+```
+
+
+
+
+
+
+
+```{r}
+library("NeuralEstimators")
+
+estimator <- initialise_estimator(p = 2, d = 1, architecture = "DNN")
+
+library("JuliaConnectoR")
+
+juliaEval('import Pkg; Pkg.add("Flux")')
+
+estimator <- juliaEval('
+  using NeuralEstimators
+  using Flux
+
+  d = 1    # dimension of each replicate
+  p = 2    # number of parameters in the statistical model
+  w = 32   # number of neurons in each hidden layer
+
+  psi = Chain(Dense(d, w, relu), Dense(w, w, relu), Dense(w, w, relu))
+  phi = Chain(Dense(w, w, relu), Dense(w, w, relu), Dense(w, p))
+  DeepSet(psi, phi)
+')
+
+
+start.time <- Sys.time()
+
+
+estimator <- train(
+  estimator,
+  theta_train = theta_train,
+  theta_val   = theta_val,
+  Z_train = Z_train,
+  Z_val   = Z_val,
+  epochs = 50
+  )
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+
+```
+
+```{r}
+theta_test <- previa.autoregresivo(1000)
+Z_test     <- simulate.autoregresivo(theta_test, m)
+assessment <- assess(estimator, theta_test, Z_test)
+
+
+rmse(assessment)
+```
+
+```{r}
+theta <- as.matrix(c(0.7, 1.75))                             # true parameters
+J   <- 400                                              # number of data sets
+Z   <- lapply(1:J, function(i) simulate.autoregresivo(theta, m)[[1]]) # simulate data 
+assessment_un_parametro <- assess(estimator, theta, Z)
+plotdistribution(assessment_un_parametro$estimates)
+```
+
+
+```{r}
+save.image('restringido100k15n32.RData')
+```
+
+
+
+## Autoregresivo restringido y cambio de arquitectura
+
+
+
+
+
+```{r}
+library("NeuralEstimators")
+
+estimator <- initialise_estimator(p = 2, d = 1, architecture = "CNN",kernel_size = list(2,2,2))
+
+library("JuliaConnectoR")
+
+juliaEval('import Pkg; Pkg.add("Flux")')
+
+estimator <- juliaEval('
+  using NeuralEstimators
+  using Flux
+
+  d = 1    # dimension of each replicate
+  p = 2    # number of parameters in the statistical model
+  w = 32   # number of neurons in each hidden layer
+
+  psi = Chain(Dense(d, w, relu), Dense(w, w, relu), Dense(w, w, relu))
+  phi = Chain(Dense(w, w, relu), Dense(w, w, relu), Dense(w, p))
+  DeepSet(psi, phi)
+')
+
+
+start.time <- Sys.time()
+
+
+estimator <- train(
+  estimator,
+  theta_train = theta_train,
+  theta_val   = theta_val,
+  Z_train = Z_train,
+  Z_val   = Z_val,
+  epochs = 50
+  )
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+
+```
+
+```{r}
+theta_test <- previa.autoregresivo(1000)
+Z_test     <- simulate.autoregresivo(theta_test, m)
+assessment <- assess(estimator, theta_test, Z_test)
+
+
+rmse(assessment)
+```
+
+```{r}
+theta <- as.matrix(c(0.7, 1.75))                           # true parameters
+J   <- 400                                              # number of data sets
+Z   <- lapply(1:J, function(i) simulate.autoregresivo(theta, m)[[1]]) # simulate data 
+assessment_un_parametro <- assess(estimator, theta, Z)
+plotdistribution(assessment_un_parametro$estimates)
+```
+
+```{r}
+save.image('restringidoCNN100k15n32.RData')
+```
+
+
+
+# Autoregresivo dos dimensiones:
+## Restringido
+
+
+```{r}
+previa.autoregresivo <- function(K) {
+  phi    <- runif(K,min = 0.5,max=0.8)
+  sigma <- rgamma(K,shape=2,scale = 1)
+  Theta <- matrix(c(phi, sigma), byrow = TRUE, ncol = K)
+  return(Theta)
+}
+K <- 100000
+theta_train <- previa.autoregresivo(K) 
+theta_val   <- previa.autoregresivo(K/10)
+
+
+replicadora <- function(y){
+  tamano <- length(y)
+  y2 <- matrix(nrow =tamano-1, ncol=2)
+  for (k in 1:tamano) {
+    if (k!=tamano) {
+      y2[k,] <- matrix(c(y[k],y[k+1]),ncol=2,nrow = 1)
+    }
+  }
+  return(t(y2))
+}
+
+simulate.autoregresivo <- function(Theta, m) {
+  apply(Theta, 2, function(theta) replicadora(t(arima.sim(n = m, list(ar = c(Theta[1])),
+          sd = Theta[2] )))  ,simplify = F)
+}
+
+m <- 15
+Z_train <- simulate.autoregresivo(theta_train, m)
+Z_val   <- simulate.autoregresivo(theta_val, m)
+```
+
+
+
+```{r}
+Z_val[[1]]
+```
+
+
+```{r}
+library("NeuralEstimators")
+
+estimator <- initialise_estimator(p = 2, d = 2, architecture = "DNN")
+
+library("JuliaConnectoR")
+
+juliaEval('import Pkg; Pkg.add("Flux")')
+
+estimator <- juliaEval('
+  using NeuralEstimators
+  using Flux
+
+  d = 2    # dimension of each replicate
+  p = 2    # number of parameters in the statistical model
+  w = 32   # number of neurons in each hidden layer
+
+  psi = Chain(Dense(d, w, relu), Dense(w, w, relu), Dense(w, w, relu))
+  phi = Chain(Dense(w, w, relu), Dense(w, w, relu), Dense(w, p))
+  DeepSet(psi, phi)
+')
+
+
+start.time <- Sys.time()
+
+
+estimator <- train(
+  estimator,
+  theta_train = theta_train,
+  theta_val   = theta_val,
+  Z_train = Z_train,
+  Z_val   = Z_val,
+  epochs = 50
+  )
+
+end.time <- Sys.time()
+time.taken <- end.time - start.time
+time.taken
+
+```
+
+```{r}
+theta_test <- previa.autoregresivo(1000)
+Z_test     <- simulate.autoregresivo(theta_test, m)
+assessment <- assess(estimator, theta_test, Z_test)
+
+
+rmse(assessment)
+```
+
+
+
+
+
+
+```{r}
+theta <- as.matrix(c(0.7, 1.75))                           # true parameters
+J   <- 400                                              # number of data sets
+Z   <- lapply(1:J, function(i) simulate.autoregresivo(theta, m)[[1]]) # simulate data 
+assessment_un_parametro <- assess(estimator, theta, Z)
+plotdistribution(assessment_un_parametro$estimates)
+```
+
+
+
+```{r}
+mean(abs(runif(1000,0.5,0.8)-mean(runif(1000,0.5,0.8))))
+```
+```{r}
+arima.sim(model = list(c(0.5,0,0)),100)
+```
+
+
+```{r}
+```
+
+```{python}
+
+```
+
+
