@@ -1,3 +1,4 @@
+
 inicio <- Sys.time()
 cat("Hora inicio:", format(inicio, "%H:%M:%S"), "\n")
 
@@ -77,7 +78,7 @@ datos_guanacaste$lat <- round(datos_guanacaste$lat, 3)
 # Ordenar por fecha
 datos_guanacaste <- datos_guanacaste[order(datos_guanacaste$date), ]
 datos_guanacaste <- datos_guanacaste %>% 
-  filter(date<ymd(20200901))
+  filter(date>=ymd(20200901)) # CAmbio
 
 
 
@@ -556,8 +557,6 @@ proceso_estimacion <- function(params_covariables, params_parametros, nsites, m,
 }
 
 
-
-
 df_X_train_guanacaste_train_test <- data.frame(t=1:m,X_train_guanacaste_train_test) %>% 
   pivot_longer(X1:X83, names_to = "variable", values_to = "valor") 
 
@@ -580,7 +579,7 @@ dir.create("calculo_WIS", showWarnings = FALSE)
 combinations <- expand.grid(D =  c("1","2","3","4","5","6","7","8","Y"), M = 1:7)
 
 for (i in 1:nrow(combinations) ) {
-
+  
   
   D <- combinations$D[i]
   M <- combinations$M[i]
@@ -590,7 +589,7 @@ for (i in 1:nrow(combinations) ) {
   modelo_covariables <- paste0('M', M)
   modelo_completo <- paste0(modelo_parametros,'-', modelo_covariables)
   
-    ################################
+  ################################
   # Profe: revisar ubicación
   modelo_ubicacion <- sprintf("Traceplot_aplicacion_phi_final/trace_covariables_D%s_aplicacion_M%s.csv", D, M)
   ################################
@@ -661,7 +660,7 @@ for (i in 1:nrow(combinations) ) {
         IS <- lower_upper_t$q[2]-lower_upper_t$q[1] + 2/lower*ifelse(lower_upper_t$q[1]>y_t$valor[1],lower_upper_t$q[1]-y_t$valor[1],0) + 2/lower*ifelse(lower_upper_t$q[2]<y_t$valor[1],y_t$valor[1]-lower_upper_t$q[2],0) 
         df_IS_aux <- data.frame(modelo=modelo_completo,t=tt,variable=vv,alpha=lower,lower=lower_upper_t$q[1],upper = lower_upper_t$q[2],y=y_t$valor[1],m=mediana_t$q[1],IS = IS)
         df_IS <- rbind(df_IS,df_IS_aux)
-
+        
         
         
       }
@@ -669,14 +668,14 @@ for (i in 1:nrow(combinations) ) {
   }
   
   
-  archivo <- paste0('WIS_phi_train_', modelo_completo, '.RData')
+  archivo <- paste0('WIS_phi_test_', modelo_completo, '.RData')
   
   # Construir ruta completa
   ruta <- file.path("calculo_WIS", archivo)
   
   save(df_IS, file = ruta)
   
-
+  
 }
 
 
