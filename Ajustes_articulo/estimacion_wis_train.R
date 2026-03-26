@@ -1,4 +1,3 @@
-
 inicio <- Sys.time()
 cat("Hora inicio:", format(inicio, "%H:%M:%S"), "\n")
 
@@ -557,10 +556,6 @@ proceso_estimacion <- function(params_covariables, params_parametros, nsites, m,
 }
 
 
-# Configuramos el entorno para paralelizar
-plan(multisession)  # Utiliza múltiples procesos en tu máquina, puedes elegir entre "multisession", "multicore" (en sistemas Unix) o "cluster"
-
-
 
 
 df_X_train_guanacaste_train_test <- data.frame(t=1:m,X_train_guanacaste_train_test) %>% 
@@ -569,109 +564,6 @@ df_X_train_guanacaste_train_test <- data.frame(t=1:m,X_train_guanacaste_train_te
 
 
 
-calculo_paralelizado <- function(combinations){
-  # Paralelizamos los bucles para D y M
-  futuro_resultados <- future_lapply(1:nrow(combinations), function(i) {
-    
-    D <- combinations$D[i]
-    M <- combinations$M[i]
-    
-    
-    modelo_parametros <- paste0('D', D)
-    modelo_covariables <- paste0('M', M)
-    modelo_completo <- paste(modelo_parametros, modelo_covariables)
-    ################################
-    # Profe: revisar ubicación
-    modelo_ubicacion <- sprintf("Traceplot_aplicacion_phi_final/trace_covariables_D%s_aplicacion_M%s.csv", D, M)
-    ################################
-    trace_modelo <- read_csv(modelo_ubicacion, show_col_types = FALSE)
-    trace_modelo <- trace_modelo[, 2:ncol(trace_modelo)]
-    id_covariables <- which(startsWith(names(trace_modelo), 'posterior_g'))
-    if (D %in% c(1,2)){
-      id_parametros <- c(1,2)
-    }else{
-      id_parametros <- (length(id_covariables) + 1):ncol(trace_modelo)
-    }
-    
-    
-    cantidad_simulaciones <- nrow(trace_modelo)
-    
-    # Dataframe donde guardamos simulaciones
-    df_simul <- data.frame()
-    for (muestra in 1:cantidad_simulaciones) {
-      params_covariables <- unlist(trace_modelo[muestra, id_covariables])
-      params_parametros <- unlist(trace_modelo[muestra, id_parametros])
-      if (length(params_covariables) == 1) {
-        covm <- matrix(cov_original_train_test, ncol = 1)
-      } else {
-        covm <- cov_original_train_test[, 1:length(id_covariables)]
-      }
-      simul <- proceso_estimacion(params_covariables, params_parametros, nsites_train_test, m, covm, dist_mat_train_test, modelo_parametros)
-      
-      df_simul_aux <- data.frame(muestra=muestra,t=1:m,simul)
-      df_simul <- rbind(df_simul,df_simul_aux)
-    }
-    
-    # Iniciamos calculo de percentiles para cada y[t,j]
-    df_simul_upper_lower <- df_simul %>% 
-      pivot_longer(X1:X83, names_to = "variable", values_to = "valor") %>% 
-      group_by(t, variable) %>% 
-      summarise(
-        percentil = round(seq(0.05, 0.95, by = 0.05),2),
-        q = quantile(valor, probs = percentil),
-        .groups = "drop"
-      ) %>% ungroup()
-    
-    
-    # Calculamos IS
-    vector_upper <- round(seq(0.55,0.95,0.05),2)
-    tv <- unique(df_simul_upper_lower$t)
-    variablev <- unique(df_simul_upper_lower$variable)
-    df_IS <- data.frame()
-    
-    for (tt in tv) {
-      for (vv in variablev) {
-        for (upper in vector_upper) {
-          lower <- round(1-upper,2)
-          lower_upper_t <- df_simul_upper_lower %>% 
-            dplyr::filter(t==tt,variable==vv) %>% 
-            dplyr::filter(percentil==upper | percentil==lower) %>% 
-            arrange(t,variable,percentil)
-          
-          mediana_t <-  df_simul_upper_lower %>% 
-            dplyr::filter(t==tt,variable==vv) %>% 
-            dplyr::filter(percentil==0.5)
-          
-          y_t <- df_X_train_guanacaste_train_test %>% 
-            dplyr::filter(t==tt,variable==vv)
-          
-          IS <- lower_upper_t$q[2]-lower_upper_t$q[1] + 2/lower*ifelse(lower_upper_t$q[1]>y_t$valor[1],lower_upper_t$q[1]-y_t$valor[1],0) + 2/lower*ifelse(lower_upper_t$q[2]<y_t$valor[1],y_t$valor[1]-lower_upper_t$q[2],0) 
-          df_IS_aux <- data.frame(modelo=modelo_completo,t=tt,variable=vv,alpha=lower,lower=lower_upper_t$q[1],upper = lower_upper_t$q[2],y=y_t$valor[1],m=mediana_t$q[1],IS = IS)
-          df_IS <- rbind(df_IS,df_IS_aux)
-        }
-      }
-    }
-    
-    
-    return(df_IS)
-  }, future.seed = TRUE)
-  
-  
-  
-  
-  
-  
-  # Una vez completado el proceso, puedes combinar los resultados
-  for (id in 1:length(futuro_resultados)) {
-    df_errores <- rbind(df_errores, futuro_resultados[[id]])
-  }
-  
-  
-  return(df_errores)
-  
-  
-  
-}
 
 
 # Profe
@@ -680,33 +572,116 @@ calculo_paralelizado <- function(combinations){
 
 # Todos los modelos son:
 #combinations <- expand.grid(D = c("1","2","3","4","5","6","7","8","Y","Z"), M = 1:7)
-# Se corre en for porque el uso de memoria puede ser muy alto. Por ejemplo, se corre D8 M1, D8 M2, etc en paralelo
+# Se corre en for porque el uso de memoria puede ser muy alto.
 ##################################################
 
 # Crear carpeta de salida si no existe
 dir.create("calculo_WIS", showWarnings = FALSE)
+combinations <- expand.grid(D =  c("1","2","3","4","5","6","7","8","Y"), M = 1:7)
 
-for (mod in c("1","2","3","4","5","6","7","8","Y")) {
+for (i in 1:nrow(combinations) ) {
+
   
-  cat('Inicia cálculo del modelo', 'D', mod, '\n')
+  D <- combinations$D[i]
+  M <- combinations$M[i]
   
-  combinations <- expand.grid(D = c(mod), M = 1:7)
   
-  resultado <- calculo_paralelizado(combinations)
+  modelo_parametros <- paste0('D', D)
+  modelo_covariables <- paste0('M', M)
+  modelo_completo <- paste0(modelo_parametros,'-', modelo_covariables)
   
-  archivo <- paste0('WIS_phi_train_', mod, '.RData')
+    ################################
+  # Profe: revisar ubicación
+  modelo_ubicacion <- sprintf("Traceplot_aplicacion_phi_final/trace_covariables_D%s_aplicacion_M%s.csv", D, M)
+  ################################
+  trace_modelo <- read_csv(modelo_ubicacion, show_col_types = FALSE)
+  trace_modelo <- trace_modelo[, 2:ncol(trace_modelo)]
+  id_covariables <- which(startsWith(names(trace_modelo), 'posterior_g'))
+  if (D %in% c(1,2)){
+    id_parametros <- c(1,2)
+  }else{
+    id_parametros <- (length(id_covariables) + 1):ncol(trace_modelo)
+  }
+  
+  
+  cantidad_simulaciones <- nrow(trace_modelo)
+  
+  # Dataframe donde guardamos simulaciones
+  cat('Inicia simulaciones del modelo',modelo_completo,'\n')
+  df_simul <- data.frame()
+  for (muestra in 1:cantidad_simulaciones) {
+    params_covariables <- unlist(trace_modelo[muestra, id_covariables])
+    params_parametros <- unlist(trace_modelo[muestra, id_parametros])
+    if (length(params_covariables) == 1) {
+      covm <- matrix(cov_original_train_test, ncol = 1)
+    } else {
+      covm <- cov_original_train_test[, 1:length(id_covariables)]
+    }
+    simul <- proceso_estimacion(params_covariables, params_parametros, nsites_train_test, m, covm, dist_mat_train_test, modelo_parametros)
+    
+    df_simul_aux <- data.frame(muestra=muestra,t=1:m,simul)
+    df_simul <- rbind(df_simul,df_simul_aux)
+  }
+  
+  cat('Inicia calculo de percentiles del modelo',modelo_completo,'\n')
+  # Iniciamos calculo de percentiles para cada y[t,j]
+  df_simul_upper_lower <- df_simul %>% 
+    pivot_longer(X1:X83, names_to = "variable", values_to = "valor") %>% 
+    group_by(t, variable) %>% 
+    summarise(
+      percentil = round(seq(0.05, 0.95, by = 0.05),2),
+      q = quantile(valor, probs = percentil),
+      .groups = "drop"
+    ) %>% ungroup()
+  
+  
+  # Calculamos IS
+  cat('Inicia calculo de pesado del IS del modelo',modelo_completo,'\n')
+  vector_upper <- round(seq(0.55,0.95,0.05),2)
+  tv <- unique(df_simul_upper_lower$t)
+  variablev <- unique(df_simul_upper_lower$variable)
+  
+  df_IS <- data.frame()
+  for (tt in tv) {
+    for (vv in variablev) {
+      for (upper in vector_upper) {
+        lower <- round(1-upper,2)
+        lower_upper_t <- df_simul_upper_lower %>% 
+          dplyr::filter(t==tt,variable==vv) %>% 
+          dplyr::filter(percentil==upper | percentil==lower) %>% 
+          arrange(t,variable,percentil)
+        
+        mediana_t <-  df_simul_upper_lower %>% 
+          dplyr::filter(t==tt,variable==vv) %>% 
+          dplyr::filter(percentil==0.5)
+        
+        y_t <- df_X_train_guanacaste_train_test %>% 
+          dplyr::filter(t==tt,variable==vv)
+        
+        IS <- lower_upper_t$q[2]-lower_upper_t$q[1] + 2/lower*ifelse(lower_upper_t$q[1]>y_t$valor[1],lower_upper_t$q[1]-y_t$valor[1],0) + 2/lower*ifelse(lower_upper_t$q[2]<y_t$valor[1],y_t$valor[1]-lower_upper_t$q[2],0) 
+        df_IS_aux <- data.frame(modelo=modelo_completo,t=tt,variable=vv,alpha=lower,lower=lower_upper_t$q[1],upper = lower_upper_t$q[2],y=y_t$valor[1],m=mediana_t$q[1],IS = IS)
+        df_IS <- rbind(df_IS,df_IS_aux)
+
+        
+        
+      }
+    }
+  }
+  
+  
+  archivo <- paste0('WIS_phi_train_', modelo_completo, '.RData')
   
   # Construir ruta completa
   ruta <- file.path("calculo_WIS", archivo)
   
-  save(df_errores, file = ruta)
+  save(df_IS, file = ruta)
   
-  cat("Se guarda archivo en:", ruta, '\n')
+
 }
+
 
 
 fin <- Sys.time()
 duracion <- fin-inicio
 cat("Hora fin:", format(fin, "%H:%M:%S"), "\n")
 cat("Duración:", duracion, "\n")
-
