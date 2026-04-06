@@ -1,0 +1,3 @@
+2026-04-02 03:28:12.886318 | Inicio modelo D4-M3
+2026-04-02 03:28:12.886482 | Leyendo archivo Traceplot_aplicacion_phi_final/trace_covariables_D4_aplicacion_M3.csv
+2026-04-02 03:28:12.978597 | Inicia simulaciones

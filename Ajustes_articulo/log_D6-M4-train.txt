@@ -1,0 +1,6 @@
+2026-03-29 06:04:53.870433 | Inicio modelo D6-M4
+2026-03-29 06:04:53.870673 | Leyendo archivo Traceplot_aplicacion_phi_final/trace_covariables_D6_aplicacion_M4.csv
+2026-03-29 06:04:54.307165 | Inicia simulaciones
+2026-03-29 15:30:35.431245 | Inicia percentiles
+2026-03-29 15:32:18.367086 | Inicia IS
+2026-03-30 06:48:31.936833 | Fin modelo D6-M4
