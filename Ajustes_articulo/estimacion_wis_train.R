@@ -613,23 +613,34 @@ clusterEvalQ(cl, {
 
 # Función que ejecuta UN modelo
 procesar_modelo <- function(i) {
-  
+
+
   D <- combinations$D[i]
   M <- combinations$M[i]
-  
   modelo_parametros <- paste0('D', D)
   modelo_covariables <- paste0('M', M)
   modelo_completo <- paste0(modelo_parametros,'-', modelo_covariables)
+
   
   log_file <- paste0("log_", modelo_completo,'-train', ".txt")
-  
   log_msg <- function(txt) {
     cat(paste0(Sys.time(), " | ", txt, "\n"),
         file = log_file, append = TRUE)
   }
-  
+  archivo <- paste0('WIS_phi_train_', modelo_completo, '.RData')
+  ruta <- file.path("calculo_WIS", archivo)
+    
+  if (file.exists(ruta)) {
+    log_msg("Saltando (ya existe):", modelo_completo, "\n")
+    return(paste0(modelo_completo, "_skip"))
+  }
+
   log_msg(paste("Inicio modelo", modelo_completo))
   
+  
+  tryCatch({
+  
+
   modelo_ubicacion <- sprintf(
     "Traceplot_aplicacion_phi_final/trace_covariables_D%s_aplicacion_M%s.csv", 
     D, M
@@ -737,21 +748,25 @@ procesar_modelo <- function(i) {
   save(df_IS, file = ruta)
   
   log_msg(paste("Fin modelo", modelo_completo))
+  return(NA)
   
-  return(modelo_completo)
+  }, error = function(e) {
+    log_msg(paste0(" | ERROR: ", e$message, "\n"))
+    return(NA)
+  })
 }
 
 resultado <- tryCatch({
   parLapply(cl, 1:nrow(combinations), procesar_modelo)
 }, error = function(e) {
-  print(e)
+  print(e$message)
 })
 
 
-stopCluster(cl)
+
 
 fin <- Sys.time()
 duracion <- fin-inicio
 cat("Hora fin:", format(fin, "%H:%M:%S"), "\n")
 cat("Duración:", duracion, "\n")
-
+stopCluster(cl)
