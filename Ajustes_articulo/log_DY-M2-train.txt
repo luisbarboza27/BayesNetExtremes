@@ -4,3 +4,5 @@
 2026-03-29 15:53:15.547936 | Inicia percentiles
 2026-03-29 15:54:59.398428 | Inicia IS
 2026-03-30 07:17:20.862273 | Fin modelo DY-M2
+2026-04-08 13:52:54.829557 | Saltando (ya existe): DY-M2 
+

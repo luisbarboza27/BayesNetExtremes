@@ -1,6 +1,0 @@
-2026-03-28 05:28:29.579429 | Inicio modelo D1-M1
-2026-03-28 05:28:29.579903 | Leyendo archivo Traceplot_aplicacion_phi_final/trace_covariables_D1_aplicacion_M1.csv
-2026-03-28 05:28:29.810492 | Inicia simulaciones
-2026-03-28 11:35:05.289473 | Inicia percentiles
-2026-03-28 11:36:37.22586 | Inicia IS
-2026-03-29 02:38:46.783708 | Fin modelo D1-M1

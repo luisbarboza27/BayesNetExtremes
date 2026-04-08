@@ -573,7 +573,6 @@ df_X_train_guanacaste_train_test <- data.frame(t=1:m,X_train_guanacaste_train_te
 
 # Crear carpeta de salida si no existe
 dir.create("calculo_WIS", showWarnings = FALSE)
-combinations <- expand.grid(D =  c("1","2","3","4","5","6","7","8","Y"), M = 1:7)
 library(parallel)
 library(readr)
 library(dplyr)
@@ -629,9 +628,11 @@ procesar_modelo <- function(i) {
   }
   archivo <- paste0('WIS_phi_train_', modelo_completo, '.RData')
   ruta <- file.path("calculo_WIS", archivo)
+
     
-  if (file.exists(ruta)) {
-    log_msg("Saltando (ya existe):", modelo_completo, "\n")
+  
+  if (file.exists(ruta) ) {
+    log_msg(paste("Saltando (ya existe):", modelo_completo, "\n"))
     return(paste0(modelo_completo, "_skip"))
   }
 

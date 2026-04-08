@@ -1,6 +1,0 @@
-2026-04-01 04:46:55.13065 | Inicio modelo D3-M3
-2026-04-01 04:46:55.130798 | Leyendo archivo Traceplot_aplicacion_phi_final/trace_covariables_D3_aplicacion_M3.csv
-2026-04-01 04:46:55.228004 | Inicia simulaciones
-2026-04-01 12:27:22.767899 | Inicia percentiles
-2026-04-01 12:28:48.273129 | Inicia IS
-2026-04-02 03:28:12.88593 | Fin modelo D3-M3
