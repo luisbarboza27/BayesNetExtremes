@@ -582,7 +582,7 @@ dir.create("calculo_WIS", showWarnings = FALSE)
 combinations <- expand.grid(D =  c("4","5","6","7"), M = 1:7)
 
 # Número de núcleos (4 en tu caso)
-n_cores <- 4
+n_cores <- 2
 cl <- makeCluster(n_cores, outfile = "")
 
 # Exportar objetos necesarios a los workers
