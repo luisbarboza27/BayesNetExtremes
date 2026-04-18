@@ -273,7 +273,7 @@ def funcion_red(simul_previa_D8,cov,parametros,n_epochs,n_batch_size,hidden_size
 
 def gibbs(n,n_posteriores,n_covariables,simulacion_proceso,valid_sim_data_1,trainer_covariables,amortizer_covariables):
     resultados = []
-    muestras_paralelas=5
+    muestras_paralelas=250
     
     myobj = datetime.now()
     print(n)
@@ -297,7 +297,7 @@ def gibbs(n,n_posteriores,n_covariables,simulacion_proceso,valid_sim_data_1,trai
   
     return(df_covariables)
 
-n_posteriores=10
+n_posteriores=10000
 nombres_parametros = ['posterior_phi','posterior_sigma','posterior_beta3','posterior_rho']+['posterior_g'+str(z+1) for z in range(cov.shape[1])]
 phi_real = 0.5
 sigma_real = 1
