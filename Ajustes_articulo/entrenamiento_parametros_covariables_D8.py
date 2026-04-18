@@ -248,7 +248,7 @@ class CustomLSTM_D8(tf.keras.Model):
         out = self.LSTM(x)
         return out
 
-
+a="""
 ###################################################################
 nombre_modelo='parametros_D8_simulacion_extremo_V11'
 summary_net_D8 = CustomLSTM_D8(128, 128)
@@ -275,9 +275,14 @@ summary_net_D8 = CustomLSTM_D8(1024, 1024)
 entrenamiento=funcion_entrenamiento(simul_previa_D8,cov,parametros,n_epochs,n_batch_size,summary_net_D8,nombre_modelo)
 
 
-
 ###################################################################
 nombre_modelo='parametros_D8_simulacion_extremo_V15'
 summary_net_D8 = CustomLSTM_D8(2048, 128)
 entrenamiento=funcion_entrenamiento(simul_previa_D8,cov,parametros,n_epochs,n_batch_size,summary_net_D8,nombre_modelo)
 
+"""
+
+###################################################################
+nombre_modelo='parametros_D8_simulacion_extremo_V16'
+summary_net_D8 = CustomLSTM_D8(1000, 2000)
+entrenamiento=funcion_entrenamiento(simul_previa_D8,cov,parametros,n_epochs,n_batch_size,summary_net_D8,nombre_modelo)
