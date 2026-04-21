@@ -278,7 +278,7 @@ def gibbs(n,n_posteriores,n_covariables,simulacion_proceso,valid_sim_data_1,trai
     myobj = datetime.now()
     print(n)
     print("Inicio muestras posteriores:", myobj)
-    for start_idx in range(0, n_posteriores,muestras_paralelas):
+    for start_idx in range(n_posteriores//muestras_paralelas):
         valid_sim_data_1['sim_data']=simulacion_proceso
         valid_sim_data_1_c = trainer_covariables.configurator(valid_sim_data_1)
         posterior_samples = amortizer_covariables.sample(valid_sim_data_1_c, n_samples=muestras_paralelas)
@@ -342,7 +342,7 @@ df_result.to_csv('estimacion_r_'+'simulacion_'+ nombre_modelo.replace('parametro
 trace.to_csv('estimacion_t_'+'simulacion_'+ nombre_modelo.replace('parametros_','') +'.csv')
 
 nombre_modelo='parametros_D8_simulacion_extremo_V162_15'
-amortizer_f,trainer_f,valid_sim_data_1=funcion_red('simul_previa_D8',cov,parametros,n_epochs,n_batch_size,2048, 128,nombre_modelo)
+amortizer_f,trainer_f,valid_sim_data_1=funcion_red('simul_previa_D8',cov,parametros,n_epochs,n_batch_size,1000, 2000,nombre_modelo)
 trace=gibbs(nombre_modelo,n_posteriores,len(gammas_real),np.expand_dims(simulacion_proceso, axis=0),valid_sim_data_1,trainer_f,amortizer_f)
 df_result = mcmc_summary_statistics(trace,param_real)
 print(df_result)
