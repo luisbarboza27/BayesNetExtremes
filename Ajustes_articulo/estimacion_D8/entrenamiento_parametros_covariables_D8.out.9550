@@ -1,0 +1,385 @@
+Run 'mamba init' to be able to run mamba activate/deactivate
+and start a new shell session. Or use conda to activate/deactivate.
+
+2026-04-19 11:54:09.533083: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-04-19 11:54:10.935185: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-04-19 11:54:10.935238: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-04-19 11:54:10.996019: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-04-19 11:54:11.148103: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-04-19 11:54:30.045867: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+INFO:root:Performing 2 pilot runs with the simulador_proceso model...
+INFO:root:Shape of parameter batch after 2 pilot simulations: (batch_size = 2, 8)
+INFO:root:Shape of simulation batch after 2 pilot simulations: (batch_size = 2, 200, 10, 10, 1)
+INFO:root:No optional prior non-batchable context provided.
+INFO:root:No optional prior batchable context provided.
+INFO:root:No optional simulation non-batchable context provided.
+INFO:root:No optional simulation batchable context provided.
+2026-04-19 11:55:34.775500: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1929] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 79193 MB memory:  -> device: 0, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:b1:00.0, compute capability: 8.0
+INFO:root:Loaded loss history from parametros_D8_simulacion_extremo_V112_15/history_40.pkl.
+INFO:root:Networks loaded from parametros_D8_simulacion_extremo_V112_15/ckpt-40
+INFO:root:Performing a consistency check with provided components...
+2026-04-19 11:55:38.334732: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:454] Loaded cuDNN version 8904
+INFO:root:Done.
+INFO:root:Loaded loss history from parametros_D8_simulacion_extremo_V122_15/history_40.pkl.
+INFO:root:Networks loaded from parametros_D8_simulacion_extremo_V122_15/ckpt-40
+INFO:root:Performing a consistency check with provided components...
+INFO:root:Done.
+INFO:root:Loaded loss history from parametros_D8_simulacion_extremo_V132_15/history_40.pkl.
+INFO:root:Networks loaded from parametros_D8_simulacion_extremo_V132_15/ckpt-40
+INFO:root:Performing a consistency check with provided components...
+INFO:root:Done.
+INFO:root:Loaded loss history from parametros_D8_simulacion_extremo_V142_15/history_40.pkl.
+INFO:root:Networks loaded from parametros_D8_simulacion_extremo_V142_15/ckpt-40
+INFO:root:Performing a consistency check with provided components...
+INFO:root:Done.
+100 locaciones
+200 en tiempo
+parametros_D8_simulacion_extremo_V112_15
+Inicio muestras posteriores: 2026-04-19 11:55:44.478701
+Finaliza muestras posteriores: 2026-04-19 11:56:00.239641
+                 Absolute Bias  Standard Error  95% CI Length
+posterior_phi         0.512321        0.004659       1.577692
+posterior_sigma       0.044079        0.001648       0.599994
+posterior_beta3       3.596528        0.037160      12.301058
+posterior_rho         0.004403        0.002902       0.949834
+posterior_g1          0.015467        0.001105       0.435651
+posterior_g2          0.125994        0.000742       0.295398
+posterior_g3          0.147535        0.000732       0.291586
+posterior_g4          0.109254        0.000844       0.332149
+parametros_D8_simulacion_extremo_V122_15
+Inicio muestras posteriores: 2026-04-19 11:56:02.977557
+Finaliza muestras posteriores: 2026-04-19 11:56:17.994842
+                 Absolute Bias  Standard Error  95% CI Length
+posterior_phi         0.508378        0.004544       1.565204
+posterior_sigma       0.063246        0.001637       0.590651
+posterior_beta3       3.559219        0.037554      12.281631
+posterior_rho         0.005978        0.002931       0.951816
+posterior_g1          0.051702        0.001100       0.435800
+posterior_g2          0.099129        0.000718       0.281298
+posterior_g3          0.125380        0.000742       0.292145
+posterior_g4          0.059812        0.000947       0.381613
+parametros_D8_simulacion_extremo_V132_15
+Inicio muestras posteriores: 2026-04-19 11:56:21.921891
+Finaliza muestras posteriores: 2026-04-19 11:56:36.912550
+                 Absolute Bias  Standard Error  95% CI Length
+posterior_phi         0.517376        0.004402       1.540371
+posterior_sigma       0.071557        0.001515       0.565035
+posterior_beta3       3.580007        0.037300      12.328327
+posterior_rho         0.003179        0.002885       0.950055
+posterior_g1          0.019844        0.001058       0.416564
+posterior_g2          0.047863        0.000733       0.292240
+posterior_g3          0.135982        0.000721       0.287111
+posterior_g4          0.120547        0.000845       0.334798
+parametros_D8_simulacion_extremo_V142_15
+Inicio muestras posteriores: 2026-04-19 11:56:40.961340
+Finaliza muestras posteriores: 2026-04-19 11:56:56.065486
+                 Absolute Bias  Standard Error  95% CI Length
+posterior_phi         0.517297        0.004480       1.556582
+posterior_sigma       0.070688        0.001648       0.613979
+posterior_beta3       3.489964        0.037714      12.314896
+posterior_rho         0.001277        0.002890       0.951780
+posterior_g1          0.028294        0.001046       0.418390
+posterior_g2          0.154855        0.000723       0.287189
+posterior_g3          0.081520        0.000693       0.270440
+posterior_g4          0.108664        0.000792       0.315089
+Traceback (most recent call last):
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/ops/resource_variable_ops.py", line 782, in _restore_from_tensors
+    assigned_variable = shape_safe_assign_variable_handle(
+                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/ops/resource_variable_ops.py", line 314, in shape_safe_assign_variable_handle
+    shape.assert_is_compatible_with(value_tensor.shape)
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/framework/tensor_shape.py", line 1384, in assert_is_compatible_with
+    raise ValueError("Shapes %s and %s are incompatible" % (self, other))
+ValueError: Shapes (8192,) and (4000,) are incompatible
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/carlos.pasquier/Calculos/entrenamiento_bayesflow/aplicacion_tesis_phi_1/estimacion_D8_simulacion_red_individual.py", line 345, in <module>
+    amortizer_f,trainer_f,valid_sim_data_1=funcion_red('simul_previa_D8',cov,parametros,n_epochs,n_batch_size,2048, 128,nombre_modelo)
+                                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carlos.pasquier/Calculos/entrenamiento_bayesflow/aplicacion_tesis_phi_1/estimacion_D8_simulacion_red_individual.py", line 255, in funcion_red
+    trainer_D8 = Trainer(amortizer=amortizer_D8, generative_model=model_D8, memory=False, checkpoint_path = nombre_modelo)
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/bayesflow/trainers.py", line 205, in __init__
+    self.checkpoint.restore(self.manager.latest_checkpoint)
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/checkpoint/checkpoint.py", line 2707, in restore
+    status = self.read(save_path, options=options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/checkpoint/checkpoint.py", line 2570, in read
+    result = self._saver.restore(save_path=save_path, options=options)
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/checkpoint/checkpoint.py", line 1479, in restore
+    checkpoint=checkpoint, proto_id=0).restore(self._graph_view.root,
+                                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/checkpoint/restore.py", line 62, in restore
+    restore_ops = self._restore_descendants(reader)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/checkpoint/restore.py", line 463, in _restore_descendants
+    current_position.checkpoint.restore_saveables(
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/checkpoint/checkpoint.py", line 379, in restore_saveables
+    registered_savers).restore(self.save_path_tensor, self.options)
+                       ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/checkpoint/functional_saver.py", line 499, in restore
+    restore_ops = restore_fn()
+                  ^^^^^^^^^^^^
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/checkpoint/functional_saver.py", line 467, in restore_fn
+    ret = restore_fn(restored_tensors)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/training/saving/saveable_object_util.py", line 747, in _restore_from_tensors
+    return saveable_object_to_restore_fn(self.saveables)(restored_tensors)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/training/saving/saveable_object_util.py", line 784, in _restore_from_tensors
+    restore_ops[saveable.name] = saveable.restore(
+                                 ^^^^^^^^^^^^^^^^^
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/training/saving/saveable_object_util.py", line 602, in restore
+    ret = restore_fn(restored_tensor_dict)
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/carlos.pasquier/bin/miniforge3/envs/ambientepy3115/lib/python3.11/site-packages/tensorflow/python/ops/resource_variable_ops.py", line 785, in _restore_from_tensors
+    raise ValueError(
+ValueError: Received incompatible tensor with shape (4000,) when attempting to restore variable with shape (8192,) and name lstm_8/lstm_cell/bias:0.
+WARNING:tensorflow:Detecting that an object or model or tf.train.Checkpoint is being deleted with unrestored values. See the following logs for the specific values in question. To silence these warnings, use `status.expect_partial()`. See https://www.tensorflow.org/api_docs/python/tf/train/Checkpoint#restorefor details about the status object returned by the restore function.
+WARNING:tensorflow:Detecting that an object or model or tf.train.Checkpoint is being deleted with unrestored values. See the following logs for the specific values in question. To silence these warnings, use `status.expect_partial()`. See https://www.tensorflow.org/api_docs/python/tf/train/Checkpoint#restorefor details about the status object returned by the restore function.
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).save_counter
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).save_counter
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.0.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.1.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.2.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.3.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.4.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.5.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.6.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.7.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.8.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net1.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net1.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net1.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net1.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net1.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net1.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net2.net.fc.layer_with_weights-0.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net2.net.fc.layer_with_weights-0.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net2.net.fc.layer_with_weights-1.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net2.net.fc.layer_with_weights-1.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net2.net.fc.layer_with_weights-2.kernel
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net2.net.fc.layer_with_weights-2.bias
+WARNING:tensorflow:Value in checkpoint could not be found in the restored object: (root).model.inference_net.coupling_layers.9.net2.net.fc.layer_with_weights-2.bias
