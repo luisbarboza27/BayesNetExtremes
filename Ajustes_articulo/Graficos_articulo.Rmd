@@ -1694,12 +1694,10 @@ conteo_modelos
 
 ## Cálculo WIS
 
+### Train
 
 ```{r}
 # Train
-library(stringr)
-library(dplyr)
-library(tidyr)
 
 archivos <- dir('calculo_WIS')
 
@@ -1799,9 +1797,100 @@ for (i in 1:nrow(tabla_fmt)) {
 
 ```
 
-
+### Test
 ```{r}
-df_errores_train
+# filtrar archivos de interés
+archivos_cuantiles <- archivos[
+  stringr::str_detect(archivos, 'test') & stringr::str_detect(archivos, 'quantile') 
+]
+
+df_WIS_modelos <- data.frame()
+
+for (arc in archivos_cuantiles) {
+  
+  load(paste0('calculo_WIS/', arc))
+  
+  vector_WIS <- c()
+  
+  for (lloc in as.integer(stringr::str_replace(vect_test, 's', ''))) {
+    for (lt in unique(df_IS$t)) {
+      
+      observacion <- df_IS %>% 
+        filter(variable == lloc, t == lt)
+      
+      if (nrow(observacion) > 0) {
+        WIS_y <- 1/(nrow(observacion)+0.5) * (
+          abs(observacion$y[1] - observacion$m[1]) +
+          sum(observacion$IS * observacion$alpha / 2)
+        )
+        
+        vector_WIS <- c(vector_WIS, WIS_y)
+      }
+    }
+  }
+  
+  # extraer D y M (soporta quantile, DY, DZ, etc.)
+  modelo_info <- stringr::str_match(
+    arc, "(?:quantile)?(D[0-9]+|DY|DZ)-(M[0-9]+)"
+  )
+  
+  D_val <- modelo_info[2]
+  M_val <- modelo_info[3]
+  
+  # guardar resultado
+  WIS_modelo <- data.frame(
+    D = D_val,
+    M = M_val,
+    wis = mean(vector_WIS)
+  )
+  
+  df_WIS_modelos <- rbind(df_WIS_modelos, WIS_modelo)
+}
+
+# ---------------------------
+# completar combinaciones faltantes
+# ---------------------------
+
+D_vals <- c(paste0("D", 1:8), "DY")
+M_vals <- paste0("M", 1:7)
+
+df_WIS_modelos <- df_WIS_modelos %>%
+  complete(D = D_vals, M = M_vals, fill = list(wis = 0))
+
+# ---------------------------
+# pasar a formato ancho
+# ---------------------------
+
+tabla <- df_WIS_modelos %>%
+  pivot_wider(names_from = M, values_from = wis) %>%
+  arrange(factor(D, levels = D_vals))
+
+# ---------------------------
+# formatear decimales
+# ---------------------------
+
+tabla_fmt <- tabla
+tabla_fmt[,-1] <- lapply(tabla_fmt[,-1], function(x) sprintf("%.3f", x))
+
+# ---------------------------
+# imprimir formato LaTeX
+# ---------------------------
+
+for (i in 1:nrow(tabla_fmt)) {
+  
+  fila <- tabla_fmt[i,]
+  
+  linea <- paste0(
+    ifelse(i == 1, "", " & "),
+    fila$D, " & ",
+    paste(fila[,-1], collapse = " & "),
+    " \\\\"
+  )
+  
+  cat(linea, "\n")
+}
+
+
 ```
 
 ## Traceplot
