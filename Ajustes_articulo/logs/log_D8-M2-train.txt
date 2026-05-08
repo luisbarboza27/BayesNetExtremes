@@ -1,6 +1,0 @@
-2026-03-28 05:28:29.58652 | Inicio modelo D8-M2
-2026-03-28 05:28:29.586923 | Leyendo archivo Traceplot_aplicacion_phi_final/trace_covariables_D8_aplicacion_M2.csv
-2026-03-28 05:28:29.910169 | Inicia simulaciones
-2026-03-28 14:49:23.585332 | Inicia percentiles
-2026-03-28 14:50:55.147541 | Inicia IS
-2026-03-29 06:10:02.775465 | Fin modelo D8-M2

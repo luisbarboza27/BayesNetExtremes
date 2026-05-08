@@ -1,3 +1,0 @@
-2026-04-08 13:52:54.833493 | Inicio modelo D8-M3
-2026-04-08 13:52:54.834283 | Leyendo archivo Traceplot_aplicacion_phi_final/trace_covariables_D8_aplicacion_M3.csv
-2026-04-08 13:52:56.632321 | Inicia simulaciones

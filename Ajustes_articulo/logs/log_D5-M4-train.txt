@@ -1,6 +1,0 @@
-2026-03-28 05:28:29.590136 | Inicio modelo D5-M4
-2026-03-28 05:28:29.590539 | Leyendo archivo Traceplot_aplicacion_phi_final/trace_covariables_D5_aplicacion_M4.csv
-2026-03-28 05:28:29.888285 | Inicia simulaciones
-2026-03-28 14:48:24.209185 | Inicia percentiles
-2026-03-28 14:49:57.231184 | Inicia IS
-2026-03-29 06:04:53.860394 | Fin modelo D5-M4

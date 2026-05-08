@@ -1,3 +1,0 @@
-2026-03-30 06:48:31.938988 | Inicio modelo D7-M4
-2026-03-30 06:48:31.939185 | Leyendo archivo Traceplot_aplicacion_phi_final/trace_covariables_D7_aplicacion_M4.csv
-2026-03-30 06:48:32.093976 | Inicia simulaciones
