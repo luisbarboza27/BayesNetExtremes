@@ -345,7 +345,7 @@ class CustomLSTM_D4(tf.keras.Model):
         super().__init__()
         timesteps = m
         self.LSTM = tf.keras.Sequential(
-            [   tf.keras.layers.Input((timesteps,13, 12, 1)),
+            [   tf.keras.layers.Input((timesteps,13, 13, 1)),
                 TimeDistributed(Conv2D(filters=32, kernel_size=(3, 3), padding='same')),
                 TimeDistributed(Conv2D(filters=64, kernel_size=(3, 3), activation='relu')),
                 TimeDistributed(tf.keras.layers.Flatten()),
