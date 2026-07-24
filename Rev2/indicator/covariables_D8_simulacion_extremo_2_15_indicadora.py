@@ -168,7 +168,7 @@ def proceso_D8(params, m):
     y_train_phi_auxiliar = np.random.uniform(-0.85,0.85,size=1)[0]
     y_train_sigma_auxiliar= np.random.uniform(0,3,size=1)[0]#np.random.gamma(shape=2,scale=1,size=K)
     X3_auxiliar_completo = simular_X3(m,y_train_rho_auxiliar,y_train_beta3_auxiliar,nsites,dist_mat)
-    X_train_auxiliar = np.zeros((nsites+4, m))
+    X_train_auxiliar = np.zeros((nsites, m))
     X3_auxiliar_completo = simular_X3(m,y_train_rho_auxiliar,y_train_beta3_auxiliar,nsites,dist_mat)
     X1_auxiliar=simular_X1(m,0.5)
     Indicator  = np.zeros((nsites,m))
