@@ -99,7 +99,7 @@ m=200
 
 print(str(nsites) + ' locaciones')
 print(str(m) + ' en tiempo')
-
+time_points=m
 
  
  
