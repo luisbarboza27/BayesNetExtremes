@@ -100,7 +100,7 @@ m=200
 print(str(nsites) + ' locaciones')
 print(str(m) + ' en tiempo')
 
-
+time_points=m
  
  
 def simular_X3(n,rho,beta3,nsites,dist_mat):
