@@ -1,0 +1,101 @@
+Run 'mamba init' to be able to run mamba activate/deactivate
+and start a new shell session. Or use conda to activate/deactivate.
+
+2026-07-23 22:31:47.195748: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-07-23 22:31:47.987106: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-07-23 22:31:47.987171: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-07-23 22:31:48.007785: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-07-23 22:31:48.165545: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-07-23 22:31:51.976630: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+INFO:root:Performing 2 pilot runs with the simulador_proceso model...
+INFO:root:Shape of parameter batch after 2 pilot simulations: (batch_size = 2, 8)
+INFO:root:Shape of simulation batch after 2 pilot simulations: (batch_size = 2, 200, 10, 10, 2)
+INFO:root:No optional prior non-batchable context provided.
+INFO:root:No optional prior batchable context provided.
+INFO:root:No optional simulation non-batchable context provided.
+INFO:root:No optional simulation batchable context provided.
+2026-07-23 22:32:03.078484: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1929] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 79193 MB memory:  -> device: 0, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:b1:00.0, compute capability: 8.0
+INFO:root:Loaded loss history from parametros_D8_simulacion_extremo_V112_15_completa_indicadora/history_40.pkl.
+INFO:root:Networks loaded from parametros_D8_simulacion_extremo_V112_15_completa_indicadora/ckpt-40
+INFO:root:Performing a consistency check with provided components...
+2026-07-23 22:32:04.842657: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:454] Loaded cuDNN version 8904
+INFO:root:Done.
+INFO:root:Loaded loss history from parametros_D8_simulacion_extremo_V122_15_completa_indicadora/history_40.pkl.
+INFO:root:Networks loaded from parametros_D8_simulacion_extremo_V122_15_completa_indicadora/ckpt-40
+INFO:root:Performing a consistency check with provided components...
+INFO:root:Done.
+INFO:root:Loaded loss history from parametros_D8_simulacion_extremo_V132_15_completa_indicadora/history_40.pkl.
+INFO:root:Networks loaded from parametros_D8_simulacion_extremo_V132_15_completa_indicadora/ckpt-40
+INFO:root:Performing a consistency check with provided components...
+INFO:root:Done.
+INFO:root:Loaded loss history from parametros_D8_simulacion_extremo_V142_15_completa_indicadora/history_40.pkl.
+INFO:root:Networks loaded from parametros_D8_simulacion_extremo_V142_15_completa_indicadora/ckpt-40
+INFO:root:Performing a consistency check with provided components...
+INFO:root:Done.
+INFO:root:Loaded loss history from parametros_D8_simulacion_extremo_V162_15_completa_indicadora/history_40.pkl.
+INFO:root:Networks loaded from parametros_D8_simulacion_extremo_V162_15_completa_indicadora/ckpt-40
+INFO:root:Performing a consistency check with provided components...
+INFO:root:Done.
+100 locaciones
+200 en tiempo
+parametros_D8_simulacion_extremo_V112_15_completa_indicadora
+Inicio muestras posteriores: 2026-07-23 22:32:08.519854
+Finaliza muestras posteriores: 2026-07-23 22:32:25.225181
+                 Absolute Bias  Standard Error  95% CI Length
+posterior_phi         0.505145        0.004588       1.560069
+posterior_sigma       0.041659        0.001568       0.563115
+posterior_beta3       3.529662        0.037368      12.351916
+posterior_rho         0.010390        0.002898       0.952637
+posterior_g1          0.021149        0.001146       0.445841
+posterior_g2          0.127618        0.000734       0.288910
+posterior_g3          0.120625        0.000728       0.285658
+posterior_g4          0.056918        0.000871       0.339431
+parametros_D8_simulacion_extremo_V122_15_completa_indicadora
+Inicio muestras posteriores: 2026-07-23 22:32:27.333712
+Finaliza muestras posteriores: 2026-07-23 22:32:43.216248
+                 Absolute Bias  Standard Error  95% CI Length
+posterior_phi         0.511114        0.004604       1.578911
+posterior_sigma       0.034765        0.001586       0.569958
+posterior_beta3       3.500503        0.037642      12.341157
+posterior_rho         0.006563        0.002911       0.951181
+posterior_g1          0.094495        0.001109       0.432373
+posterior_g2          0.099024        0.000711       0.276295
+posterior_g3          0.113090        0.000690       0.272450
+posterior_g4          0.043929        0.000939       0.369524
+parametros_D8_simulacion_extremo_V132_15_completa_indicadora
+Inicio muestras posteriores: 2026-07-23 22:32:47.375799
+Finaliza muestras posteriores: 2026-07-23 22:33:03.189578
+                 Absolute Bias  Standard Error  95% CI Length
+posterior_phi         0.514386        0.004328       1.551477
+posterior_sigma       0.068507        0.001442       0.543505
+posterior_beta3       3.633872        0.037066      12.294725
+posterior_rho         0.000335        0.002926       0.954745
+posterior_g1          0.044348        0.001067       0.424648
+posterior_g2          0.147449        0.000716       0.279240
+posterior_g3          0.117494        0.000663       0.264468
+posterior_g4          0.158089        0.000822       0.321267
+parametros_D8_simulacion_extremo_V142_15_completa_indicadora
+Inicio muestras posteriores: 2026-07-23 22:33:07.064336
+Finaliza muestras posteriores: 2026-07-23 22:33:23.002562
+                 Absolute Bias  Standard Error  95% CI Length
+posterior_phi         0.507762        0.004508       1.572702
+posterior_sigma       0.051033        0.001563       0.580445
+posterior_beta3       3.528254        0.037591      12.410802
+posterior_rho         0.002185        0.002915       0.956047
+posterior_g1          0.109179        0.001082       0.421569
+posterior_g2          0.105995        0.000715       0.283895
+posterior_g3          0.113285        0.000715       0.285779
+posterior_g4          0.097708        0.000816       0.320704
+parametros_D8_simulacion_extremo_V162_15_completa_indicadora
+Inicio muestras posteriores: 2026-07-23 22:33:26.291456
+Finaliza muestras posteriores: 2026-07-23 22:33:42.332952
+                 Absolute Bias  Standard Error  95% CI Length
+posterior_phi         0.511777        0.004675       1.578751
+posterior_sigma       0.025435        0.001589       0.571474
+posterior_beta3       3.547188        0.037524      12.338691
+posterior_rho         0.006588        0.002959       0.958133
+posterior_g1          0.111646        0.001070       0.425763
+posterior_g2          0.095292        0.000680       0.268794
+posterior_g3          0.064478        0.000668       0.258766
+posterior_g4          0.109171        0.000790       0.315049
