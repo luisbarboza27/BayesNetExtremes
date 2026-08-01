@@ -147,10 +147,10 @@ nsite_completados = len(loc_all_completar)
 
 def model_prior():
     #y_train_beta1_auxiliar = np.random.uniform(0.05,0.95,size=1)[0]
-    y_train_beta1_auxiliar = np.random.uniform(0.05,0.95,size=1)[0]
-    y_train_beta2_auxiliar = np.random.uniform(0.05,0.95,size=1)[0]
+    y_train_beta1_auxiliar = np.random.uniform(0.05,2,size=1)[0]
+    y_train_beta2_auxiliar = np.random.uniform(0.05,2,size=1)[0]
     #y_train_gamma_auxiliar = previa_covariables(len(cov[0,:]))
-    y_train_beta3_auxiliar = np.random.uniform(2,high=7.5,size=1)[0]
+    y_train_beta3_auxiliar = np.random.uniform(2,high=15,size=1)[0]
     y_train_rho_auxiliar =  np.random.uniform(0,rho_upper_range,size=1)[0]
     y_train_auxiliar = [y_train_beta2_auxiliar,y_train_beta1_auxiliar,y_train_beta3_auxiliar,
                         y_train_rho_auxiliar]

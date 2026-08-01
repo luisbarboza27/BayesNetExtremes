@@ -145,19 +145,21 @@ nsite_completados = len(loc_all_completar)
 
 
 
+
 def model_prior():
-    #y_train_beta1_auxiliar = np.random.uniform(0.05,0.95,size=1)[0]
+    """Generates random draws from uniform pior with rejection sampling."""
     y_train_phi_auxiliar = np.random.uniform(-0.85,0.85,size=1)[0]
     
-    y_train_sigma_auxiliar= np.random.uniform(0,3,size=1)[0]#np.random.gamma(shape=2,scale=1,size=K)
+    y_train_sigma_auxiliar= np.random.uniform(0.05,3,size=1)[0]#np.random.gamma(shape=2,scale=1,size=K)
     #y_train_gamma_auxiliar = previa_covariables(len(cov[0,:]))
-    y_train_beta3_auxiliar = np.random.uniform(2,high=7.5,size=1)[0]
+    y_train_beta3_auxiliar = np.random.uniform(2,high=15,size=1)[0]
     y_train_rho_auxiliar =  np.random.uniform(0,rho_upper_range,size=1)[0]
     y_train_auxiliar = [y_train_phi_auxiliar,y_train_sigma_auxiliar,y_train_beta3_auxiliar,
                         y_train_rho_auxiliar]
    
     previas = np.array(y_train_auxiliar)
     return(previas)
+ 
  
 parametros= [ r"$\phi$", r"$\sigma$",r"$\beta_3$", r"$\rho$"]
 prior = Prior(prior_fun=model_prior, param_names=parametros)
