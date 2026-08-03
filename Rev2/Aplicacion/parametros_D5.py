@@ -249,107 +249,107 @@ COUPLING_NET_SETTINGS = {
     "num_dense": 2,
     "dropout_prob": 0.2, "bins" : 32
 }
+ from datetime import datetime
+
+
+n_epochs = 25
+n_iterations_per_epoch = 1000
+n_batch_size = 128
  
-print("Inicia simulación")
-inicio_sim = datetime.now()
-
-simul_previa = model(batch_size=n_iterations_per_epoch * n_batch_size)
-
-fin_sim = datetime.now()
-tiempo_sim = fin_sim - inicio_sim
 
 
-from datetime import datetime
+def train_multiple_models(models,
+                          total_sims=n_iterations_per_epoch * n_batch_size,
+                          block_size=12800):
 
+    # Initialize each model with its own trainer and amortizer
+    trainers = {}
+    amortizers = {}
+    for model_name, (n1, n2) in models.items():
+        # Build summary and inference networks
+        summary_net = CustomLSTM(n1, n2)
+        inference_net = InvertibleNetwork(
+            num_params=4,
+            num_coupling_layers=10,
+            coupling_settings=COUPLING_NET_SETTINGS,
+            coupling_design='spline'
+        )
+        amortizer = AmortizedPosterior(
+            inference_net,
+            summary_net,
+            name=model_name
+        )
+        trainer = Trainer(
+            amortizer=amortizer,
+            generative_model=model,
+            memory=False,
+            checkpoint_path=model_name
+        )
+        trainers[model_name] = trainer
+        amortizers[model_name] = amortizer
 
+    start_time = datetime.now()
+    print("Starting step-by-step training with multiple models...")
 
-def funcion_entrenamiento(n1,n2,nombre_modelo):
+    # Iterate over simulation blocks
+    for i in range(0, total_sims, block_size):
+        print(f"Block {i//block_size + 1}: {i} → {i+block_size}")
 
-    summary_net = CustomLSTM(n1,n2)
-    inference_net = InvertibleNetwork(
-        num_params=4,
-        num_coupling_layers=10,
-        coupling_settings=COUPLING_NET_SETTINGS,
-        coupling_design='spline'
-    )
+        # Generate one block of simulations
+        sim_block = model(batch_size=block_size)
 
-    amortizer = AmortizedPosterior(
-        inference_net,
-        summary_net,
-        name=nombre_modelo
-    )
+        # Train each model using the same block
+        for model_name, trainer in trainers.items():
+            print(f"Training {model_name} with block {i//block_size + 1}")
+            history = trainer.train_offline(
+                simulations_dict=sim_block,
+                epochs=n_epochs,
+                batch_size=n_batch_size,
+                early_stopping=True,
+                validation_sims=128
+            )
 
-    trainer = Trainer(
-        amortizer=amortizer,
-        generative_model=model,
-        memory=False,
-        checkpoint_path=nombre_modelo
-    )
-    inicio = datetime.now()
-    history = trainer.train_offline(
-        simulations_dict=simul_previa,
-        epochs=n_epochs,
-        batch_size=n_batch_size,
-        early_stopping=True,
-        validation_sims=128
-    )
-    fin = datetime.now()
-    valid_sim_data_raw = model(batch_size=512)
-    valid_sim_data = trainer.configurator(valid_sim_data_raw)
-    posterior_samples = amortizer.sample(valid_sim_data, n_samples=100)
+    end_time = datetime.now()
+    duration = end_time - start_time
 
-    fig = diag.plot_recovery(
-        posterior_samples,
-        valid_sim_data["parameters"],
-        param_names=parametros,
-        xlabel="Real",
-        ylabel="Estimado",
-        n_col=2
-    )
-    fig.savefig(nombre_modelo + ".PNG")
+    # Final validation for each model
+    for model_name, amortizer in amortizers.items():
+        valid_sim_data_raw = model(batch_size=512)
+        valid_sim_data = trainers[model_name].configurator(valid_sim_data_raw)
+        posterior_samples = amortizer.sample(valid_sim_data, n_samples=100)
 
+        # Save recovery plot
+        fig = diag.plot_recovery(
+            posterior_samples,
+            valid_sim_data["parameters"],
+            param_names=parametros,
+            xlabel="True",
+            ylabel="Estimated",
+            n_col=2
+        )
+        fig.savefig(model_name + ".PNG")
 
-    duracion = fin - inicio
+        # Save results to TXT
+        with open(f"{model_name}.txt", "a") as f:
+            f.write("######################################################################\n")
+            f.write(f"Model: {model_name}\n")
+            f.write(f"Start: {start_time}\n")
+            f.write(f"End: {end_time}\n")
+            f.write(f"Execution time: {duration}\n\n")
 
-    # Mostrar por pantalla
     print("######################################################################")
-    print(f"Finaliza {nombre_modelo}")
-    print(f"Inicio: {inicio}")
-    print(f"Fin: {fin}")
-    print(f"Tiempo de ejecución: {duracion}")
-
-    # Guardar en un TXT
-    with open(f"{nombre_modelo}.txt", "a") as f:
-        f.write("######################################################################\n")
-        f.write(f"Modelo: {nombre_modelo}\n")
-        f.write(f"Inicio: {inicio}\n")
-        f.write(f"Fin: {fin}\n")
-        f.write(f"Tiempo de ejecución: {duracion}\n\n")
-        f.write(f"Tiempo de simulación: {tiempo_sim}\n\n")
-        
-        
-        
-
-###################################################################
-nombre_modelo='parametros_D5_1'
-entrenamiento=funcion_entrenamiento(128,128,nombre_modelo)
+    print("Finished training all models")
+    print(f"Start: {start_time}")
+    print(f"End: {end_time}")
+    print(f"Total time: {duration}")
 
 
-###################################################################
-nombre_modelo='parametros_D5_2'
-entrenamiento=funcion_entrenamiento(128,1024,nombre_modelo)
+modelos = {
+    'parametros_D5_1': (128,128),
+    'parametros_D5_2': (128,1024),
+    'parametros_D5_3': (1024,128),
+    'parametros_D5_4': (1024,1024),
+    'parametros_D5_6': (1000,2000)
+}
 
-
-###################################################################
-nombre_modelo='parametros_D5_3'
-entrenamiento=funcion_entrenamiento(1024,128,nombre_modelo)
-
-
-###################################################################
-nombre_modelo='parametros_D5_4'
-entrenamiento=funcion_entrenamiento(1024,1024,nombre_modelo)
-
-
-###################################################################
-nombre_modelo='parametros_D5_6'
-entrenamiento=funcion_entrenamiento(1000,2000,nombre_modelo)
+train_multiple_models(modelos)
