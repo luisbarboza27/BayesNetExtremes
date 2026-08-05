@@ -249,7 +249,7 @@ COUPLING_NET_SETTINGS = {
     "num_dense": 2,
     "dropout_prob": 0.2, "bins" : 32
 }
- from datetime import datetime
+from datetime import datetime
 
 
 n_epochs = 25
