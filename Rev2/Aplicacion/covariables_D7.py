@@ -274,17 +274,6 @@ sim_mean = np.mean(data["sim_data"])
 sim_std = np.std(data["sim_data"])
 
 
- 
-print("Inicia simulación")
-inicio_sim = datetime.now()
-
-simul_previa = model(batch_size=n_iterations_per_epoch * n_batch_size)
-
-fin_sim = datetime.now()
-tiempo_sim = fin_sim - inicio_sim
-
-
-from datetime import datetime
 
 class CustomLSTM(tf.keras.Model):
     def __init__(self, hidden_size=512, summary_dim=512):
@@ -313,140 +302,167 @@ COUPLING_NET_SETTINGS = {
     "dropout_prob": 0.2, "bins" : 32
 }
 
-def funcion_entrenamiento(simul_previa,cov,parametros,n_epochs,n_batch_size,hidden_size, summary_dim,nombre_modelo,n_row):
 
-    summary_net = CustomLSTM(hidden_size,summary_dim)
-    inference_net = InvertibleNetwork(
-        num_params=cov.shape[1],
-        num_coupling_layers=10,
-        coupling_settings=COUPLING_NET_SETTINGS,
-        coupling_design='spline'
-    )
+import copy  # Necesario para no alterar permanentemente el bloque original en cada iteración
 
-    amortizer = AmortizedPosterior(
-        inference_net,
-        summary_net,
-        name=nombre_modelo
-    )
+n_epochs = 25
+n_iterations_per_epoch = 1000
+n_batch_size = 128
+block_size = 12800
 
-    trainer = Trainer(
-        amortizer=amortizer,
-        generative_model=model,
-        memory=False,
-        checkpoint_path=nombre_modelo
-    )
+def ajuste_df_covariable(simul, cov, covariable_quitar):
+    for sm in range(len(simul['sim_data'])):
+        valor_previa = simul['prior_draws'][sm, covariable_quitar]
+        for sitio in range(nsites):
+            simul['sim_data'][sm][0][0][:,sitio] = simul['sim_data'][sm][0][0][:,sitio] * quitar_covariable(cov[sitio,(covariable_quitar):(covariable_quitar+1)], [valor_previa])
+    
+    simul['prior_draws'] = simul['prior_draws'][:, 0:(covariable_quitar)]
+    return simul
+
+
+def entrenar_multiples_modelos_covariables(modelos_config, cov_original, parametros_originales, total_sims=n_iterations_per_epoch * n_batch_size):
+    
+    trainers = {}
+    amortizers = {}
+    
+    # 1. Inicializar todos los modelos con sus propios amortizers y trainers
+    print("Inicializando redes neuronales...")
+    for nombre_modelo, cfg in modelos_config.items():
+        print(f"Inicializando {nombre_modelo} con {cfg['num_covs']} covariables")
+        num_covs = cfg['num_covs']
+        
+        summary_net = CustomLSTM(cfg['hidden_size'], cfg['summary_dim'])
+        inference_net = InvertibleNetwork(
+            num_params=num_covs,
+            num_coupling_layers=4,
+            coupling_settings=COUPLING_NET_SETTINGS,
+            coupling_design='spline'
+        )
+        
+        amortizer = AmortizedPosterior(
+            inference_net,
+            summary_net,
+            name=nombre_modelo
+        )
+        
+        trainer = Trainer(
+            amortizer=amortizer,
+            memory=False,
+            checkpoint_path=nombre_modelo
+        )
+        
+        trainers[nombre_modelo] = trainer
+        amortizers[nombre_modelo] = amortizer
+
     inicio = datetime.now()
-    history = trainer.train_offline(
-        simulations_dict=simul_previa,
-        epochs=n_epochs,
-        batch_size=n_batch_size,
-        early_stopping=True,
-        validation_sims=128
-    )
-    fin = datetime.now()
-    valid_sim_data_raw = model(batch_size=512)#512
-    valid_sim_data = trainer.configurator(valid_sim_data_raw)
-    posterior_samples = amortizer.sample(valid_sim_data, n_samples=100)
-
-    fig = diag.plot_recovery(
-        posterior_samples,
-        valid_sim_data["parameters"],
-        param_names=parametros,
-        xlabel="Real",
-        ylabel="Estimado",
-        n_row=n_row
-    )
-    fig.savefig(nombre_modelo + ".PNG")
-
-
-    duracion = fin - inicio
-
-    # Mostrar por pantalla
     print("######################################################################")
-    print(f"Finaliza {nombre_modelo}")
+    print("Iniciando entrenamiento paso a paso por bloques...")
+    
+    # 2. Iterar sobre los bloques de simulación
+    for i in range(0, total_sims, block_size):
+        print(f"\n--- Generando Bloque {i//block_size + 1}: {i} → {i+block_size} ---")
+        
+        # Generar un bloque de simulaciones completo (con todas las covariables para M7)
+        sim_block_base = model(batch_size=block_size)
+        sim_block_validation_base = model(batch_size=128)  # Para validación, si es necesario
+        
+        # Variables de trabajo para ir reduciendo secuencialmente
+        sim_block_actual = copy.deepcopy(sim_block_base)
+        sim_block_validation_actual = copy.deepcopy(sim_block_validation_base)
+        cov_actual = copy.deepcopy(cov_original)
+        parametros_actuales = copy.deepcopy(parametros_originales)
+        
+        # Entrenar cada modelo usando el mismo bloque (ajustado según sus covariables)
+        for nombre_modelo, cfg in modelos_config.items():
+            num_covs = cfg['num_covs']
+            
+            # Reducir el bloque si el modelo actual requiere menos covariables
+            while cov_actual.shape[1] > num_covs:
+                covariable_quitar = cov_actual.shape[1] - 1
+                sim_block_actual = ajuste_df_covariable(sim_block_actual, cov_actual, covariable_quitar)
+                sim_block_validation_actual = ajuste_df_covariable(sim_block_validation_actual, cov_actual, covariable_quitar)
+                cov_actual = cov_actual[:, 0:covariable_quitar]
+                parametros_actuales = parametros_actuales[0:covariable_quitar]
+
+                
+
+            print(f"Entrenando {nombre_modelo} ({num_covs} covariables) con bloque {i//block_size + 1}")
+            history = trainers[nombre_modelo].train_offline(
+                simulations_dict=sim_block_actual,
+                epochs=n_epochs,
+                batch_size=n_batch_size,
+                early_stopping=True,
+                validation_sims=sim_block_validation_actual
+            )
+            
+    fin = datetime.now()
+    duracion = fin - inicio
+    
+    # 3. Validación final y ploteo para cada modelo
+    print("\nIniciando validación y gráficos finales...")
+    for nombre_modelo, cfg in modelos_config.items():
+        num_covs = cfg['num_covs']
+        n_row = cfg['n_row']
+        
+        # Generar data de validación nueva
+        valid_sim_data_raw = model(batch_size=512)
+        valid_cov = copy.deepcopy(cov_original)
+        valid_parametros = copy.deepcopy(parametros_originales)
+        
+        # Ajustar la data de validación al tamaño correcto de covariables
+        while valid_cov.shape[1] > num_covs:
+            covariable_quitar = valid_cov.shape[1] - 1
+            valid_sim_data_raw = ajuste_df_covariable(valid_sim_data_raw, valid_cov, covariable_quitar)
+            valid_cov = valid_cov[:, 0:covariable_quitar]
+            valid_parametros = valid_parametros[0:covariable_quitar]
+
+        valid_sim_data = trainers[nombre_modelo].configurator(valid_sim_data_raw)
+        posterior_samples = amortizers[nombre_modelo].sample(valid_sim_data, n_samples=100)
+
+        # Generar y guardar gráfico
+        fig = diag.plot_recovery(
+            posterior_samples,
+            valid_sim_data["parameters"],
+            param_names=valid_parametros,
+            xlabel="Real",
+            ylabel="Estimado",
+            n_row=n_row
+        )
+        fig.savefig(nombre_modelo + ".PNG")
+
+        # Guardar en TXT
+        with open(f"{nombre_modelo}.txt", "a") as f:
+            f.write("######################################################################\n")
+            f.write(f"Modelo: {nombre_modelo}\n")
+            f.write(f"Inicio total: {inicio}\n")
+            f.write(f"Fin total: {fin}\n")
+            f.write(f"Tiempo de ejecución conjunto: {duracion}\n\n")
+
+    print("######################################################################")
+    print("Finaliza el entrenamiento de todos los modelos")
     print(f"Inicio: {inicio}")
     print(f"Fin: {fin}")
-    print(f"Tiempo de ejecución: {duracion}")
-
-    # Guardar en un TXT
-    with open(f"{nombre_modelo}.txt", "a") as f:
-        f.write("######################################################################\n")
-        f.write(f"Modelo: {nombre_modelo}\n")
-        f.write(f"Inicio: {inicio}\n")
-        f.write(f"Fin: {fin}\n")
-        f.write(f"Tiempo de ejecución: {duracion}\n\n")
-        f.write(f"Tiempo de simulación: {tiempo_sim}\n\n")
-        
-        
-        
-
-def ajuste_df_covariable(simul,cov,covariable_quitar):
-    for sm in range(len(simul['sim_data'])):
-        valor_previa = simul['prior_draws'][sm,covariable_quitar]
-        for sitio in range(nsites):
-            simul['sim_data'][sm][0][0][:,sitio]=simul['sim_data'][sm][0][0][:,sitio]*quitar_covariable(cov[sitio,(covariable_quitar):(covariable_quitar+1)],[valor_previa])
-    
-    simul['prior_draws'] = simul['prior_draws'][:,0:(covariable_quitar)]
-    return(simul)
+    print(f"Tiempo de ejecución total: {duracion}")
 
 
-
-print('Inicia entrenamiento!')
-
-###################################################################
-nombre_modelo='covariables_D7_aplicacion_M7'
-entrenamiento=funcion_entrenamiento(simul_previa,cov,parametros,n_epochs,n_batch_size,1024, 128,nombre_modelo,n_row=3)
-
-###################################################################
-covariable_quitar=6
-simul_previa=ajuste_df_covariable(simul_previa,cov,covariable_quitar)
-cov = cov_original[:,0:covariable_quitar]
-parametros=parametros[0:covariable_quitar]
-nombre_modelo='covariables_D7_aplicacion_M6'
-entrenamiento=funcion_entrenamiento(simul_previa,cov,parametros,n_epochs,n_batch_size,1024, 128,nombre_modelo,n_row=2)
-
-###################################################################
-covariable_quitar=5
-simul_previa=ajuste_df_covariable(simul_previa,cov,covariable_quitar)
-cov = cov_original[:,0:covariable_quitar]
-parametros=parametros[0:covariable_quitar]
-nombre_modelo='covariables_D7_aplicacion_M5'
-entrenamiento=funcion_entrenamiento(simul_previa,cov,parametros,n_epochs,n_batch_size,1024, 128,nombre_modelo,n_row=2)
-
-###################################################################
-covariable_quitar=4
-simul_previa=ajuste_df_covariable(simul_previa,cov,covariable_quitar)
-cov = cov_original[:,0:covariable_quitar]
-parametros=parametros[0:covariable_quitar]
-nombre_modelo='covariables_D7_aplicacion_M4'
-entrenamiento=funcion_entrenamiento(simul_previa,cov,parametros,n_epochs,n_batch_size,1024, 128,nombre_modelo,n_row=2)
-
-###################################################################
-covariable_quitar=3
-simul_previa=ajuste_df_covariable(simul_previa,cov,covariable_quitar)
-cov = cov_original[:,0:covariable_quitar]
-parametros=parametros[0:covariable_quitar]
-nombre_modelo='covariables_D7_aplicacion_M3'
-entrenamiento=funcion_entrenamiento(simul_previa,cov,parametros,n_epochs,n_batch_size,1024, 128,nombre_modelo,n_row=1)
+# --- CONFIGURACIÓN Y EJECUCIÓN ---
+print('Inicia preparación de modelos!')
 
 
-###################################################################
-covariable_quitar=2
-simul_previa=ajuste_df_covariable(simul_previa,cov,covariable_quitar)
-cov = cov_original[:,0:covariable_quitar]
-parametros=parametros[0:covariable_quitar]
-nombre_modelo='covariables_D7_aplicacion_M2'
-entrenamiento=funcion_entrenamiento(simul_previa,cov,parametros,n_epochs,n_batch_size,1024, 128,nombre_modelo,n_row=1)
+# Definimos el diccionario con la configuración de cada modelo (en orden descendente)
+configuracion_modelos = {
+    'covariables_D7_aplicacion_M7': {'num_covs': 7, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 3},
+    'covariables_D7_aplicacion_M6': {'num_covs': 6, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
+    'covariables_D7_aplicacion_M5': {'num_covs': 5, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
+    'covariables_D7_aplicacion_M4': {'num_covs': 4, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
+    'covariables_D7_aplicacion_M3': {'num_covs': 3, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
+    'covariables_D7_aplicacion_M2': {'num_covs': 2, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
+    'covariables_D8_aplicacion_M1': {'num_covs': 1, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
+}
 
-
-###################################################################
-covariable_quitar=1
-simul_previa=ajuste_df_covariable(simul_previa,cov,covariable_quitar)
-cov = cov_original[:,0:covariable_quitar]
-parametros=parametros[0:covariable_quitar]
-nombre_modelo='covariables_D7_aplicacion_M1'
-entrenamiento=funcion_entrenamiento(simul_previa,cov,parametros,n_epochs,n_batch_size,1024, 128,nombre_modelo,n_row=1)
-
-
-
-
+# Ejecutamos la función maestra
+entrenar_multiples_modelos_covariables(
+    modelos_config=configuracion_modelos,
+    cov_original=cov_original,           # Tu array matriz global
+    parametros_originales=parametros     # Tu lista de parámetros global (los 7 originales)
+)
