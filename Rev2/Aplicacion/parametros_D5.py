@@ -345,7 +345,7 @@ def train_multiple_models(models,
 
 
 modelos = {
-    'parametros_D5_1': (128,128),
+   # 'parametros_D5_1': (128,128),
     'parametros_D5_2': (128,1024),
     'parametros_D5_3': (1024,128),
     'parametros_D5_4': (1024,1024),
