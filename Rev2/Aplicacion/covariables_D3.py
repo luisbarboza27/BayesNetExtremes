@@ -452,8 +452,7 @@ configuracion_modelos = {
     'covariables_D3_aplicacion_M5': {'num_covs': 5, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
     'covariables_D3_aplicacion_M4': {'num_covs': 4, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
     'covariables_D3_aplicacion_M3': {'num_covs': 3, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
-    'covariables_D3_aplicacion_M2': {'num_covs': 2, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
-    'covariables_D3_aplicacion_M1': {'num_covs': 1, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
+    'covariables_D3_aplicacion_M2': {'num_covs': 2, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1}
 }
 
 # Ejecutamos la función maestra
