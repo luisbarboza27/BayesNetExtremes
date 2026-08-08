@@ -565,7 +565,7 @@ def funcion_prediccion_covariables(simul_previa_DY,cov,parametros,n_epochs,n_bat
 n_epochs = 25
 n_iterations_per_epoch = 1000
 n_batch_size = 128
-n_posteriores=10
+n_posteriores=10000
 beta1_init = 0.5
 beta2_init = 0.5
 beta3_init = 5
