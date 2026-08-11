@@ -1,0 +1,45 @@
+========================================
+Job ID: 120749
+Job name: parametros_D3_grafico
+Nodo: cngpu001
+Archivo Python: /home/carlos.pasquier/Calculos/entrenamiento_bayesflow/aplicacion_articulo_R2/parametros_D3_grafico.py
+CPUs por tarea: 16
+CUDA_VISIBLE_DEVICES: 0
+========================================
+
+Currently Loaded Modules:
+  1) nvhpc/25.3
+
+ 
+
+Mon Aug 10 23:02:29 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.172.08             Driver Version: 570.172.08     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:B1:00.0 Off |                    0 |
+| N/A   30C    P0             84W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Object: 2026-08-10 23:02:34.044112
+Gpus detectados!
+63 locations
+854 in time
+Starting step-by-step training with multiple models...
+Block 1: 0 → 1
+Training parametros_D3_1 with block 1
+Training parametros_D3_2 with block 1
+Training parametros_D3_3 with block 1
+Training parametros_D3_4 with block 1
+Training parametros_D3_6 with block 1
