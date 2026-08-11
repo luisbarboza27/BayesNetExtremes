@@ -317,7 +317,7 @@ def train_multiple_models(models,
 
     # Final validation for each model
     for model_name, amortizer in amortizers.items():
-        valid_sim_data_raw = model(batch_size=512)
+        valid_sim_data_raw = model(batch_size=128)
         valid_sim_data = trainers[model_name].configurator(valid_sim_data_raw)
         posterior_samples = amortizer.sample(valid_sim_data, n_samples=100)
 
