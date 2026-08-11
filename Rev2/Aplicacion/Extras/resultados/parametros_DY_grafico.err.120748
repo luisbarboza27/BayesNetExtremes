@@ -1,0 +1,93 @@
+2026-08-10 22:54:15.431673: I tensorflow/core/util/port.cc:113] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2026-08-10 22:54:15.478137: E external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:9261] Unable to register cuDNN factory: Attempting to register factory for plugin cuDNN when one has already been registered
+2026-08-10 22:54:15.478170: E external/local_xla/xla/stream_executor/cuda/cuda_fft.cc:607] Unable to register cuFFT factory: Attempting to register factory for plugin cuFFT when one has already been registered
+2026-08-10 22:54:15.479858: E external/local_xla/xla/stream_executor/cuda/cuda_blas.cc:1515] Unable to register cuBLAS factory: Attempting to register factory for plugin cuBLAS when one has already been registered
+2026-08-10 22:54:15.487475: I tensorflow/core/platform/cpu_feature_guard.cc:182] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 AVX512F AVX512_VNNI FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2026-08-10 22:54:21.195802: W tensorflow/compiler/tf2tensorrt/utils/py_utils.cc:38] TF-TRT Warning: Could not find TensorRT
+/home/carlos.pasquier/Calculos/entrenamiento_bayesflow/aplicacion_articulo_R2/parametros_DY_grafico.py:141: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row_indexer,col_indexer] = value instead
+
+See the caveats in the documentation: https://pandas.pydata.org/pandas-docs/stable/user_guide/indexing.html#returning-a-view-versus-a-copy
+  locaciones_completas_aux['aux'] = 1
+INFO:root:Performing 2 pilot runs with the simulador_proceso model...
+INFO:root:Shape of parameter batch after 2 pilot simulations: (batch_size = 2, 4)
+INFO:root:Shape of simulation batch after 2 pilot simulations: (batch_size = 2, 854, 15, 11, 2)
+INFO:root:No optional prior non-batchable context provided.
+INFO:root:No optional prior batchable context provided.
+INFO:root:No optional simulation non-batchable context provided.
+INFO:root:No optional simulation batchable context provided.
+2026-08-10 22:54:42.566293: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1929] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 79193 MB memory:  -> device: 0, name: NVIDIA A100-SXM4-80GB, pci bus id: 0000:b1:00.0, compute capability: 8.0
+INFO:root:Loaded loss history from parametros_DY_1/history_250.pkl.
+INFO:root:Networks loaded from parametros_DY_1/ckpt-250
+INFO:root:Performing a consistency check with provided components...
+2026-08-10 22:54:44.370038: I external/local_xla/xla/stream_executor/cuda/cuda_dnn.cc:454] Loaded cuDNN version 8904
+INFO:root:Done.
+INFO:root:Loaded loss history from parametros_DY_2/history_250.pkl.
+INFO:root:Networks loaded from parametros_DY_2/ckpt-250
+INFO:root:Performing a consistency check with provided components...
+INFO:root:Done.
+INFO:root:Loaded loss history from parametros_DY_3/history_250.pkl.
+INFO:root:Networks loaded from parametros_DY_3/ckpt-250
+INFO:root:Performing a consistency check with provided components...
+INFO:root:Done.
+INFO:root:Loaded loss history from parametros_DY_4/history_226.pkl.
+INFO:root:Networks loaded from parametros_DY_4/ckpt-226
+INFO:root:Performing a consistency check with provided components...
+INFO:root:Done.
+INFO:root:Loaded loss history from parametros_DY_6/history_225.pkl.
+INFO:root:Networks loaded from parametros_DY_6/ckpt-225
+INFO:root:Performing a consistency check with provided components...
+INFO:root:Done.
+INFO:root:Generated 128 simulations for validation.
+Training epoch 1:   0%|          | 0/1 [00:00<?, ?it/s]2026-08-10 22:56:06.644146: I external/local_xla/xla/service/service.cc:168] XLA service 0x7f0c3d2296f0 initialized for platform CUDA (this does not guarantee that XLA will be used). Devices:
+2026-08-10 22:56:06.644176: I external/local_xla/xla/service/service.cc:176]   StreamExecutor device (0): NVIDIA A100-SXM4-80GB, Compute Capability 8.0
+2026-08-10 22:56:06.904654: I tensorflow/compiler/mlir/tensorflow/utils/dump_mlir_util.cc:269] disabling MLIR crash reproducer, set env var `MLIR_CRASH_REPRODUCER_DIRECTORY` to enable.
+WARNING: All log messages before absl::InitializeLog() is called are written to STDERR
+I0000 00:00:1786424167.212603  410875 device_compiler.h:186] Compiled cluster using XLA!  This line is logged at most once for the lifetime of the process.
+Training epoch 1: 100%|██████████| 1/1 [01:01<00:00, 61.50s/it, Epoch: 1, Batch: 1,Loss: -3.451,W.Decay: 0.163,Avg.Loss: -3.451,Avg.W.Decay: 0.163,LR: 5.00E-04]Training epoch 1: 100%|██████████| 1/1 [01:01<00:00, 61.50s/it, Epoch: 1, Batch: 1,Loss: -3.451,W.Decay: 0.163,Avg.Loss: -3.451,Avg.W.Decay: 0.163,LR: 5.00E-04]
+INFO:root:Validation, Epoch: 1, Loss: 35.209
+INFO:root:Generated 128 simulations for validation.
+Training epoch 1:   0%|          | 0/1 [00:00<?, ?it/s]Training epoch 1: 100%|██████████| 1/1 [00:56<00:00, 56.41s/it, Epoch: 1, Batch: 1,Loss: -5.286,W.Decay: 0.119,Avg.Loss: -5.286,Avg.W.Decay: 0.119,LR: 5.00E-04]Training epoch 1: 100%|██████████| 1/1 [00:56<00:00, 56.41s/it, Epoch: 1, Batch: 1,Loss: -5.286,W.Decay: 0.119,Avg.Loss: -5.286,Avg.W.Decay: 0.119,LR: 5.00E-04]
+INFO:root:Validation, Epoch: 1, Loss: 27.152
+INFO:root:Generated 128 simulations for validation.
+Training epoch 1:   0%|          | 0/1 [00:00<?, ?it/s]Training epoch 1: 100%|██████████| 1/1 [00:57<00:00, 57.66s/it, Epoch: 1, Batch: 1,Loss: -5.647,W.Decay: 0.147,Avg.Loss: -5.647,Avg.W.Decay: 0.147,LR: 5.00E-04]Training epoch 1: 100%|██████████| 1/1 [00:57<00:00, 57.66s/it, Epoch: 1, Batch: 1,Loss: -5.647,W.Decay: 0.147,Avg.Loss: -5.647,Avg.W.Decay: 0.147,LR: 5.00E-04]
+INFO:root:Validation, Epoch: 1, Loss: 33.707
+INFO:root:Generated 128 simulations for validation.
+Training epoch 1:   0%|          | 0/1 [00:00<?, ?it/s]Training epoch 1: 100%|██████████| 1/1 [00:57<00:00, 57.02s/it, Epoch: 1, Batch: 1,Loss: -4.511,W.Decay: 0.119,Avg.Loss: -4.511,Avg.W.Decay: 0.119,LR: 5.00E-04]Training epoch 1: 100%|██████████| 1/1 [00:57<00:00, 57.02s/it, Epoch: 1, Batch: 1,Loss: -4.511,W.Decay: 0.119,Avg.Loss: -4.511,Avg.W.Decay: 0.119,LR: 5.00E-04]
+INFO:root:Validation, Epoch: 1, Loss: 13.194
+INFO:root:Generated 128 simulations for validation.
+Training epoch 1:   0%|          | 0/1 [00:00<?, ?it/s]WARNING:tensorflow:5 out of the last 5 calls to <function backprop_step at 0x7f0f0b3cf060> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+WARNING:tensorflow:5 out of the last 5 calls to <function backprop_step at 0x7f0f0b3cf060> triggered tf.function retracing. Tracing is expensive and the excessive number of tracings could be due to (1) creating @tf.function repeatedly in a loop, (2) passing tensors with different shapes, (3) passing Python objects instead of tensors. For (1), please define your @tf.function outside of the loop. For (2), @tf.function has reduce_retracing=True option that can avoid unnecessary retracing. For (3), please refer to https://www.tensorflow.org/guide/function#controlling_retracing and https://www.tensorflow.org/api_docs/python/tf/function for  more details.
+Training epoch 1: 100%|██████████| 1/1 [00:57<00:00, 57.67s/it, Epoch: 1, Batch: 1,Loss: -5.055,W.Decay: 0.100,Avg.Loss: -5.055,Avg.W.Decay: 0.100,LR: 5.00E-04]Training epoch 1: 100%|██████████| 1/1 [00:57<00:00, 57.67s/it, Epoch: 1, Batch: 1,Loss: -5.055,W.Decay: 0.100,Avg.Loss: -5.055,Avg.W.Decay: 0.100,LR: 5.00E-04]
+INFO:root:Validation, Epoch: 1, Loss: 24.388
+2026-08-10 23:02:20.248790: W tensorflow/core/kernels/gpu_utils.cc:54] Failed to allocate memory for convolution redzone checking; skipping this check. This is benign and only means that we won't check cudnn for out-of-bounds reads and writes. This message will only be printed once.
+F0000 00:00:1786424542.045331  410682 gpu_launch_config.h:160] Check failed: work_element_count >= 0 (-1986297856 vs. 0) 
+*** Check failure stack trace: ***
+    @     0x7f0f472ed8a4  absl::lts_20230125::log_internal::LogMessage::SendToLog()
+    @     0x7f0f472ed6e3  absl::lts_20230125::log_internal::LogMessage::Flush()
+    @     0x7f0f472edcc9  absl::lts_20230125::log_internal::LogMessageFatal::~LogMessageFatal()
+    @     0x7f0f386b64f5  tensorflow::GetGpuLaunchConfig<>()
+    @     0x7f0f386b6201  tensorflow::BiasGPU<>::compute()
+    @     0x7f0f386aada8  tensorflow::BiasOp<>::Compute()
+    @     0x7f0f4b704b16  tensorflow::BaseGPUDevice::Compute()
+    @     0x7f0f4b6bab68  tensorflow::(anonymous namespace)::SingleThreadedExecutorImpl::Run()
+    @     0x7f0f4b6190e8  tensorflow::FunctionLibraryRuntimeImpl::RunSync()
+    @     0x7f0f4b6237c9  tensorflow::ProcessFunctionLibraryRuntime::RunMultiDeviceSync()
+    @     0x7f0f4b6298b2  tensorflow::ProcessFunctionLibraryRuntime::RunSync()
+    @     0x7f0f3dde0b06  tensorflow::KernelAndDeviceFunc::Run()
+    @     0x7f0f36c1876e  tensorflow::EagerKernelExecute()
+    @     0x7f0f36c22c30  tensorflow::ExecuteNode::Run()
+    @     0x7f0f3dddc184  tensorflow::EagerExecutor::SyncExecute()
+    @     0x7f0f36c1813a  tensorflow::(anonymous namespace)::EagerLocalExecute()
+    @     0x7f0f36c15b86  tensorflow::DoEagerExecute()
+    @     0x7f0f36c19689  tensorflow::EagerExecute()
+    @     0x7f0f36c153a7  tensorflow::EagerOperation::Execute()
+    @     0x7f0f3ddda793  tensorflow::CustomDeviceOpHandler::Execute()
+    @     0x7f0f4741edf5  TFE_Execute
+    @     0x7f0f49753a36  TFE_Py_FastPathExecute_C()
+    @     0x7f0f194456f4  pybind11::cpp_function::initialize<>()::{lambda()#1}::__invoke()
+    @     0x7f0f194236ff  pybind11::cpp_function::dispatcher()
+    @     0x561b6c31ddc6  cfunction_call
+srun: error: cngpu001: task 0: Aborted (core dumped)
