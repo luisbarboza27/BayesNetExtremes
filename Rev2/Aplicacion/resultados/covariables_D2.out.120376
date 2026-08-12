@@ -1,0 +1,131 @@
+========================================
+Job ID: 120376
+Job name: covariables_D2
+Nodo: cngpu002
+Archivo Python: /home/carlos.pasquier/Calculos/entrenamiento_bayesflow/aplicacion_articulo_R2/covariables_D2.py
+CPUs por tarea: 16
+CUDA_VISIBLE_DEVICES: 0
+========================================
+
+Currently Loaded Modules:
+  1) nvhpc/25.3
+
+ 
+
+Thu Aug  6 07:18:37 2026       
++-----------------------------------------------------------------------------------------+
+| NVIDIA-SMI 570.172.08             Driver Version: 570.172.08     CUDA Version: 12.8     |
+|-----------------------------------------+------------------------+----------------------+
+| GPU  Name                 Persistence-M | Bus-Id          Disp.A | Volatile Uncorr. ECC |
+| Fan  Temp   Perf          Pwr:Usage/Cap |           Memory-Usage | GPU-Util  Compute M. |
+|                                         |                        |               MIG M. |
+|=========================================+========================+======================|
+|   0  NVIDIA A100-SXM4-80GB          On  |   00000000:17:00.0 Off |                    0 |
+| N/A   27C    P0             55W /  500W |       0MiB /  81920MiB |      0%      Default |
+|                                         |                        |             Disabled |
++-----------------------------------------+------------------------+----------------------+
+                                                                                         
++-----------------------------------------------------------------------------------------+
+| Processes:                                                                              |
+|  GPU   GI   CI              PID   Type   Process name                        GPU Memory |
+|        ID   ID                                                               Usage      |
+|=========================================================================================|
+|  No running processes found                                                             |
++-----------------------------------------------------------------------------------------+
+Object: 2026-08-06 07:18:44.147307
+Gpus detectados!
+63 locations
+854 in time
+Inicia funciones de previa
+Inicia preparación de modelos!
+Inicializando redes neuronales...
+Inicializando covariables_D2_aplicacion_M7 con 7 covariables
+Inicializando covariables_D2_aplicacion_M6 con 6 covariables
+Inicializando covariables_D2_aplicacion_M5 con 5 covariables
+Inicializando covariables_D2_aplicacion_M4 con 4 covariables
+Inicializando covariables_D2_aplicacion_M3 con 3 covariables
+Inicializando covariables_D2_aplicacion_M2 con 2 covariables
+######################################################################
+Iniciando entrenamiento paso a paso por bloques...
+
+--- Generando Bloque 1: 0 → 12800 ---
+Entrenando covariables_D2_aplicacion_M7 (7 covariables) con bloque 1
+Entrenando covariables_D2_aplicacion_M6 (6 covariables) con bloque 1
+Entrenando covariables_D2_aplicacion_M5 (5 covariables) con bloque 1
+Entrenando covariables_D2_aplicacion_M4 (4 covariables) con bloque 1
+Entrenando covariables_D2_aplicacion_M3 (3 covariables) con bloque 1
+Entrenando covariables_D2_aplicacion_M2 (2 covariables) con bloque 1
+
+--- Generando Bloque 2: 12800 → 25600 ---
+Entrenando covariables_D2_aplicacion_M7 (7 covariables) con bloque 2
+Entrenando covariables_D2_aplicacion_M6 (6 covariables) con bloque 2
+Entrenando covariables_D2_aplicacion_M5 (5 covariables) con bloque 2
+Entrenando covariables_D2_aplicacion_M4 (4 covariables) con bloque 2
+Entrenando covariables_D2_aplicacion_M3 (3 covariables) con bloque 2
+Entrenando covariables_D2_aplicacion_M2 (2 covariables) con bloque 2
+
+--- Generando Bloque 3: 25600 → 38400 ---
+Entrenando covariables_D2_aplicacion_M7 (7 covariables) con bloque 3
+Entrenando covariables_D2_aplicacion_M6 (6 covariables) con bloque 3
+Entrenando covariables_D2_aplicacion_M5 (5 covariables) con bloque 3
+Entrenando covariables_D2_aplicacion_M4 (4 covariables) con bloque 3
+Entrenando covariables_D2_aplicacion_M3 (3 covariables) con bloque 3
+Entrenando covariables_D2_aplicacion_M2 (2 covariables) con bloque 3
+
+--- Generando Bloque 4: 38400 → 51200 ---
+Entrenando covariables_D2_aplicacion_M7 (7 covariables) con bloque 4
+Entrenando covariables_D2_aplicacion_M6 (6 covariables) con bloque 4
+Entrenando covariables_D2_aplicacion_M5 (5 covariables) con bloque 4
+Entrenando covariables_D2_aplicacion_M4 (4 covariables) con bloque 4
+Entrenando covariables_D2_aplicacion_M3 (3 covariables) con bloque 4
+Entrenando covariables_D2_aplicacion_M2 (2 covariables) con bloque 4
+
+--- Generando Bloque 5: 51200 → 64000 ---
+Entrenando covariables_D2_aplicacion_M7 (7 covariables) con bloque 5
+Entrenando covariables_D2_aplicacion_M6 (6 covariables) con bloque 5
+Entrenando covariables_D2_aplicacion_M5 (5 covariables) con bloque 5
+Entrenando covariables_D2_aplicacion_M4 (4 covariables) con bloque 5
+Entrenando covariables_D2_aplicacion_M3 (3 covariables) con bloque 5
+Entrenando covariables_D2_aplicacion_M2 (2 covariables) con bloque 5
+
+--- Generando Bloque 6: 64000 → 76800 ---
+Entrenando covariables_D2_aplicacion_M7 (7 covariables) con bloque 6
+Entrenando covariables_D2_aplicacion_M6 (6 covariables) con bloque 6
+Entrenando covariables_D2_aplicacion_M5 (5 covariables) con bloque 6
+Entrenando covariables_D2_aplicacion_M4 (4 covariables) con bloque 6
+Entrenando covariables_D2_aplicacion_M3 (3 covariables) con bloque 6
+Entrenando covariables_D2_aplicacion_M2 (2 covariables) con bloque 6
+
+--- Generando Bloque 7: 76800 → 89600 ---
+Entrenando covariables_D2_aplicacion_M7 (7 covariables) con bloque 7
+Entrenando covariables_D2_aplicacion_M6 (6 covariables) con bloque 7
+Entrenando covariables_D2_aplicacion_M5 (5 covariables) con bloque 7
+Entrenando covariables_D2_aplicacion_M4 (4 covariables) con bloque 7
+Entrenando covariables_D2_aplicacion_M3 (3 covariables) con bloque 7
+Entrenando covariables_D2_aplicacion_M2 (2 covariables) con bloque 7
+
+--- Generando Bloque 8: 89600 → 102400 ---
+Entrenando covariables_D2_aplicacion_M7 (7 covariables) con bloque 8
+Entrenando covariables_D2_aplicacion_M6 (6 covariables) con bloque 8
+Entrenando covariables_D2_aplicacion_M5 (5 covariables) con bloque 8
+Entrenando covariables_D2_aplicacion_M4 (4 covariables) con bloque 8
+Entrenando covariables_D2_aplicacion_M3 (3 covariables) con bloque 8
+Entrenando covariables_D2_aplicacion_M2 (2 covariables) con bloque 8
+
+--- Generando Bloque 9: 102400 → 115200 ---
+Entrenando covariables_D2_aplicacion_M7 (7 covariables) con bloque 9
+Entrenando covariables_D2_aplicacion_M6 (6 covariables) con bloque 9
+Entrenando covariables_D2_aplicacion_M5 (5 covariables) con bloque 9
+Entrenando covariables_D2_aplicacion_M4 (4 covariables) con bloque 9
+Entrenando covariables_D2_aplicacion_M3 (3 covariables) con bloque 9
+Entrenando covariables_D2_aplicacion_M2 (2 covariables) con bloque 9
+
+--- Generando Bloque 10: 115200 → 128000 ---
+Entrenando covariables_D2_aplicacion_M7 (7 covariables) con bloque 10
+Entrenando covariables_D2_aplicacion_M6 (6 covariables) con bloque 10
+Entrenando covariables_D2_aplicacion_M5 (5 covariables) con bloque 10
+Entrenando covariables_D2_aplicacion_M4 (4 covariables) con bloque 10
+Entrenando covariables_D2_aplicacion_M3 (3 covariables) con bloque 10
+Entrenando covariables_D2_aplicacion_M2 (2 covariables) con bloque 10
+
+Iniciando validación y gráficos finales...
