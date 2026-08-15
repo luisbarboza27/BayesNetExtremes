@@ -176,7 +176,7 @@ def proceso(params, m):
     for sitio in range(nsite_completados):
         if np.isnan(loc_all_completar.aux.values[sitio]):
             X_train_auxiliar[sitio] = np.repeat(0,m)
-            #Indicator[sitio] = np.repeat(0,m)
+            Indicator[sitio] = np.repeat(0,m)
         else:
             X1_auxiliar=simular_X1(m,y_train_beta1_auxiliar)
             X3_auxiliar=X3_auxiliar_completo[:,sitio_ind]
@@ -184,24 +184,24 @@ def proceso(params, m):
             auxi = np.log(X2_auxiliar*X3_auxiliar*X1_auxiliar)
             cuantil_75 = np.quantile(auxi,0.75)
             X_train_auxiliar[sitio] = np.where(auxi<cuantil_75,cuantil_75,auxi)
-            #Indicator[sitio] = np.where(auxi<cuantil_75,1,0)
+            Indicator[sitio] = np.where(auxi<cuantil_75,1,0)
 
     X_train_auxiliar = X_train_auxiliar.reshape(1, nsite_completados, m).transpose(0, 2, 1)
-    #Indicator = Indicator.reshape(1, nsite_completados, m).transpose(0, 2, 1)
+    Indicator = Indicator.reshape(1, nsite_completados, m).transpose(0, 2, 1)
     X_train_auxiliar_para_convolucion = []
     Indicator_para_convolucion = []
     
     for tiempo in range(m):
         matriz55=X_train_auxiliar[0][tiempo,:].reshape(n_lat,n_lon)
-        #matriz_ind = Indicator[0][tiempo,:].reshape(n_lat,n_lon)
+        matriz_ind = Indicator[0][tiempo,:].reshape(n_lat,n_lon)
         X_train_auxiliar_para_convolucion.append(matriz55.tolist())
-        #Indicator_para_convolucion.append(matriz_ind.tolist())
+        Indicator_para_convolucion.append(matriz_ind.tolist())
         
     X_conv = np.stack(
     [
 
         np.array(X_train_auxiliar_para_convolucion),
-        #np.array(Indicator_para_convolucion) 
+        np.array(Indicator_para_convolucion) 
     ],
     axis=-1
     )
@@ -220,7 +220,7 @@ class CustomLSTM(tf.keras.Model):
         super().__init__()
         timesteps = m
         self.LSTM = tf.keras.Sequential(
-            [   tf.keras.layers.Input((timesteps,n_lat, n_lon, 1)),
+            [   tf.keras.layers.Input((timesteps,n_lat, n_lon, 2)),
                 TimeDistributed(Conv2D(filters=32, kernel_size=(3, 3), padding='same')),
                 TimeDistributed(Conv2D(filters=64, kernel_size=(3, 3), activation='relu')),
                 TimeDistributed(tf.keras.layers.Flatten()),
@@ -286,58 +286,65 @@ def train_multiple_models(models,
 
         start_time = datetime.now()
         print("Starting step-by-step training model...")
+        try:
+            # Iterate over simulation blocks
+            for i in range(0, total_sims, block_size):
+                print(f"Block {i//block_size + 1}: {i} → {i+block_size}")
 
-        # Iterate over simulation blocks
-        for i in range(0, total_sims, block_size):
-            print(f"Block {i//block_size + 1}: {i} → {i+block_size}")
+                # Generate one block of simulations
+                sim_block = model(batch_size=block_size)
 
-            # Generate one block of simulations
-            sim_block = model(batch_size=block_size)
+                # Train each model using the same block
+                print(f"Training {model_name} with block {i//block_size + 1}")
+                
+                history = trainer.train_offline(
+                        simulations_dict=sim_block,
+                        epochs=n_epochs,
+                        batch_size=n_batch_size,
+                        early_stopping=True,
+                        validation_sims=128
+                    )
+        
+            end_time = datetime.now()
+            duration = end_time - start_time
 
-            # Train each model using the same block
-            print(f"Training {model_name} with block {i//block_size + 1}")
-            
-            history = trainer.train_offline(
-                    simulations_dict=sim_block,
-                    epochs=n_epochs,
-                    batch_size=n_batch_size,
-                    early_stopping=True,
-                    validation_sims=128
-                )
-       
-        end_time = datetime.now()
-        duration = end_time - start_time
+            valid_sim_data_raw = model(batch_size=256)
+            valid_sim_data = trainers[model_name].configurator(valid_sim_data_raw)
+            posterior_samples = amortizer.sample(valid_sim_data, n_samples=100)
 
-        valid_sim_data_raw = model(batch_size=256)
-        valid_sim_data = trainers[model_name].configurator(valid_sim_data_raw)
-        posterior_samples = amortizer.sample(valid_sim_data, n_samples=100)
+            # Save recovery plot
+            fig = diag.plot_recovery(
+                posterior_samples,
+                valid_sim_data["parameters"],
+                param_names=parametros,
+                xlabel="True",
+                ylabel="Estimated",
+                n_col=2
+            )
+            fig.savefig(model_name + ".PNG")
 
-        # Save recovery plot
-        fig = diag.plot_recovery(
-            posterior_samples,
-            valid_sim_data["parameters"],
-            param_names=parametros,
-            xlabel="True",
-            ylabel="Estimated",
-            n_col=2
-        )
-        fig.savefig(model_name + ".PNG")
-
-        # Save results to TXT
-        with open(f"{model_name}.txt", "a") as f:
-            f.write("######################################################################\n")
-            f.write(f"Model: {model_name}\n")
-            f.write(f"Start: {start_time}\n")
-            f.write(f"End: {end_time}\n")
-            f.write(f"Execution time: {duration}\n\n")
+            # Save results to TXT
+            with open(f"{model_name}.txt", "a") as f:
+                f.write("######################################################################\n")
+                f.write(f"Model: {model_name}\n")
+                f.write(f"Start: {start_time}\n")
+                f.write(f"End: {end_time}\n")
+                f.write(f"Execution time: {duration}\n\n")
+        except Exception as e:
+            print(f"Error occurred while training {model_name}: {e}")
+            with open(f"{model_name}.txt", "a") as f:
+                f.write("######################################################################\n")
+                f.write(f"Model: {model_name}\n")
+                f.write(f"Start: {start_time}\n")
+                f.write(f"Error: {e}\n\n")
 
 
 modelos = {
-    'parametros_DY_1_padding_sim_apli': (128,128),
-    'parametros_DY_2_padding_sim_apli': (128,1024),
-    'parametros_DY_3_padding_sim_apli': (1024,128),
-    'parametros_DY_4_padding_sim_apli': (1024,1024),
-    'parametros_DY_6_padding_sim_apli': (1000,2000)
+    'parametros_DY_1_padding_indicadora_aplicacion': (128,128),
+    'parametros_DY_2_padding_indicadora_aplicacion': (128,1024),
+    'parametros_DY_3_padding_indicadora_aplicacion': (1024,128),
+    'parametros_DY_4_padding_indicadora_aplicacion': (1024,1024),
+    'parametros_DY_6_padding_indicadora_aplicacion': (1000,2000)
 }
 
 train_multiple_models(modelos)
