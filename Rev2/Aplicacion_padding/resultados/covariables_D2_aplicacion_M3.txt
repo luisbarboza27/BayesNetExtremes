@@ -1,0 +1,9 @@
+######################################################################
+Modelo: covariables_D2_aplicacion_M3
+Error: FileNotFoundError: [Errno 2] No such file or directory: 'covariables_D2_aplicacion_M3/history_248.pkl'
+######################################################################
+
+######################################################################
+Modelo: covariables_D2_aplicacion_M3
+Tiempo de ejecución: 0:19:14.991005
+
