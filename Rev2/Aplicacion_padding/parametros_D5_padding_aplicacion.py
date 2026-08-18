@@ -335,7 +335,7 @@ def train_multiple_models(models,
 
 modelos = {
     #'parametros_D5_1_padding_sim_apli': (128,128),
-    'parametros_D5_2_padding_sim_apli': (128,1024),
+    #'parametros_D5_2_padding_sim_apli': (128,1024),
     'parametros_D5_3_padding_sim_apli': (1024,128),
     #'parametros_D5_4_padding_sim_apli': (1024,1024),
     #'parametros_D5_6_padding_sim_apli': (1000,2000)
