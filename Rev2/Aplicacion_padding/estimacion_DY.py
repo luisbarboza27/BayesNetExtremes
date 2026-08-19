@@ -68,7 +68,7 @@ def previa_covariables(ncov):
 def calculo_covariable(fila_locacion,gamma_cov):
     suma = 0
     for z in range(len(gamma_cov)):
-    suma+=gamma_cov[z]*fila_locacion[z]    
+        suma+=gamma_cov[z]*fila_locacion[z]    
     return np.exp(suma)
 
 
