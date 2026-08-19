@@ -8,3 +8,7 @@ Modelo: covariables_D2_aplicacion_M7
 Error: FileNotFoundError: [Errno 2] No such file or directory: 'covariables_D2_aplicacion_M7/history_271.pkl'
 ######################################################################
 
+######################################################################
+Modelo: covariables_D2_aplicacion_M7
+Tiempo de ejecución: 0:20:32.361771
+

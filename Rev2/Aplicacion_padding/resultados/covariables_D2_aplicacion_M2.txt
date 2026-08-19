@@ -2,3 +2,7 @@
 Modelo: covariables_D2_aplicacion_M2
 Tiempo de ejecución: 0:19:13.925802
 
+######################################################################
+Modelo: covariables_D2_aplicacion_M2
+Tiempo de ejecución: 0:19:38.858618
+

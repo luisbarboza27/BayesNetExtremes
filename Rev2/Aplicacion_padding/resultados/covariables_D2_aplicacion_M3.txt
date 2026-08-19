@@ -7,3 +7,7 @@ Error: FileNotFoundError: [Errno 2] No such file or directory: 'covariables_D2_a
 Modelo: covariables_D2_aplicacion_M3
 Tiempo de ejecución: 0:19:14.991005
 
+######################################################################
+Modelo: covariables_D2_aplicacion_M3
+Tiempo de ejecución: 0:20:06.666718
+

@@ -3,3 +3,8 @@ Modelo: covariables_D2_aplicacion_M4
 Error: ValueError: Input contains NaN.
 ######################################################################
 
+######################################################################
+Modelo: covariables_D2_aplicacion_M4
+Error: ValueError: Input contains NaN.
+######################################################################
+
