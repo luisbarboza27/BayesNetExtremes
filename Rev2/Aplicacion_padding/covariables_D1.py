@@ -381,12 +381,12 @@ print('Inicia preparación de modelos!')
 
 # Definimos el diccionario con la configuración de cada modelo (en orden descendente)
 configuracion_modelos = {
-    'covariables_D2_aplicacion_M7': {'num_covs': 7, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 3},
-    'covariables_D2_aplicacion_M6': {'num_covs': 6, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
-    'covariables_D2_aplicacion_M5': {'num_covs': 5, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
-    'covariables_D2_aplicacion_M4': {'num_covs': 4, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
-    'covariables_D2_aplicacion_M3': {'num_covs': 3, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
-    'covariables_D2_aplicacion_M2': {'num_covs': 2, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
+    'covariables_D1_aplicacion_M7': {'num_covs': 7, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 3},
+    'covariables_D1_aplicacion_M6': {'num_covs': 6, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
+    'covariables_D1_aplicacion_M5': {'num_covs': 5, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
+    'covariables_D1_aplicacion_M4': {'num_covs': 4, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
+    'covariables_D1_aplicacion_M3': {'num_covs': 3, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
+    'covariables_D1_aplicacion_M2': {'num_covs': 2, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
 }
 
 
