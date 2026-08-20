@@ -1,0 +1,4 @@
+######################################################################
+Modelo:estimacion_covariables_DY_aplicacion_M6
+Tiempo de ejecución: 1:57:56.058178
+
