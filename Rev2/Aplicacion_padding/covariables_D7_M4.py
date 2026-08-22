@@ -394,7 +394,7 @@ print('Inicia preparación de modelos!')
 
 # Definimos el diccionario con la configuración de cada modelo (en orden descendente)
 configuracion_modelos = {
-  'covariables_D7_aplicacion_M4': {'num_covs': 4, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2}
+  'covariables_D7_aplicacion_M4_V2': {'num_covs': 4, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2}
 }
 
 
