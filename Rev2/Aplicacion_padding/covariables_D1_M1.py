@@ -134,7 +134,7 @@ Z32 = scaler.fit_transform(Z32.values.reshape(-1,1))
 
 # MATRIZ DE DISTANCIA ENTRE NUESTROS SITIOS
 dist_mat = squareform(pdist(locaciones_completas[['lon','lat']]))
-cov_original = np.column_stack((np.ones(nsites), Z1, Z2, Z3, Z12, Z22, Z32))
+cov_original = np.ones((nsites, 1))
 rho_upper_range = 2*np.max(squareform(pdist(loc)))
 m=int(len(datos_guanacaste)/len(loc))
 
@@ -189,7 +189,7 @@ def model_prior_covariables():
     previas=np.append([y_train_phi_auxiliar,y_train_sigma_auxiliar],previas)
     return(previas)
 
-parametros_covariables = [r"$\phi$","$\sigma$",r"$\gamma_{0}$",r"$\gamma_{{lon}}$",r"$\gamma_{{lat}}$",r"$\gamma_{{alt}}$",r"$\gamma_{{lon}^2}$",r"$\gamma_{{lat}^2}$",r"$\gamma_{{alt}^2}$"]
+parametros_covariables = [r"$\phi$","$\sigma$",r"$\gamma_{0}$"]
 prior_covariables = Prior(prior_fun=model_prior_covariables, param_names=parametros_covariables)
 prior_means, prior_stds = prior_covariables.estimate_means_and_stds()
 
@@ -224,9 +224,10 @@ def proceso_covariables(params, m):
     y_train_phi_auxiliar = params[0]
     y_train_sigma_auxiliar = params[1]
     X_train_auxiliar = np.zeros((nsites, m))
+    X2_auxiliar=simular_logAR1(m,y_train_phi_auxiliar,y_train_sigma_auxiliar)
     #Indicator  = np.zeros((nsites,m))
     for sitio in range(nsites):
-        X2_auxiliar=simular_logAR1(m,y_train_phi_auxiliar,y_train_sigma_auxiliar)
+        
         covariables_auxiliar = calculo_covariable(cov[sitio,:],y_train_gamma_auxiliar)
         auxi=X2_auxiliar*covariables_auxiliar
         cuantil_75 = np.quantile(auxi,0.75)
@@ -380,14 +381,7 @@ print('Inicia preparación de modelos!')
 
 # Definimos el diccionario con la configuración de cada modelo (en orden descendente)
 configuracion_modelos = {
-    'covariables_D2_aplicacion_M7_V3': {'num_covs': 7, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 3},
-    'covariables_D2_aplicacion_M6_V3': {'num_covs': 6, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
-    'covariables_D2_aplicacion_M5_V3': {'num_covs': 5, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
-    'covariables_D2_aplicacion_M4_V3': {'num_covs': 4, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 2},
-    'covariables_D2_aplicacion_M3_V3': {'num_covs': 3, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
-    'covariables_D2_aplicacion_M2_V3': {'num_covs': 2, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
-    'covariables_D2_aplicacion_M1_V3': {'num_covs': 1, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
-    
+    'covariables_D1_aplicacion_M1': {'num_covs': 1, 'hidden_size': 1024, 'summary_dim': 128, 'n_row': 1},
 }
 
 
@@ -425,7 +419,7 @@ for i in range(0, total_sims, block_size):
         # Número de covariables que utiliza este modelo
         num_covs = config['num_covs']
 
-        if num_covs != 7:
+        if num_covs != 1:
             simul_previa = ajuste_df_covariable(
                 simul_previa,
                 cov,
