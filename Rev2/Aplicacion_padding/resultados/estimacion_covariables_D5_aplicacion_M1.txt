@@ -1,0 +1,4 @@
+######################################################################
+Modelo:estimacion_covariables_D5_aplicacion_M1
+Tiempo de ejecución: 1:56:37.566248
+
