@@ -349,7 +349,7 @@ def ajuste_df_covariable(simul, cov, covariable_quitar):
     simul['prior_draws'] = simul['prior_draws'][:, 0:(covariable_quitar+2)]
     return simul
 
-n_posteriores=5
+n_posteriores=10000
 n_epochs=25
 n_batch_size=128
 nombre_modelo='covariables_D2_aplicacion_M7_V3'
