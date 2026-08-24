@@ -1,0 +1,2 @@
+"job_id","task_id","indice_modelo","cores_modelo","modelo","archivo_wis","archivo_errores","skipped","duracion_seg","Total_RAM_Used_MiB","Peak_RAM_Used_MiB"
+"126026","10",10,4,"D8-M1","calculo_WIS/WIS_phi_test_quantileD8-M1.RData","calculo_WIS/errores_test_quantileD8-M1.RData",FALSE,531.426378965378,1.8,435.6
